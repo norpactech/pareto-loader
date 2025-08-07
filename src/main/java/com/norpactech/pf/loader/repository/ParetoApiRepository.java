@@ -105,18 +105,44 @@ public abstract class ParetoApiRepository<T> {
     return new Gson().fromJson(response.body().string(), ApiResponse.class);
   }
   
-  public ApiResponse put(Map<String, Object> apiPostRequest) throws Exception {
+  public ApiResponse put(Map<String, Object> apiPutRequest) throws Exception {
 
     String version = ParetoAPI.apiVersion == null ? "" : "/" + ParetoAPI.apiVersion;
     URL url = new URL(ParetoAPI.host + version + getRelativeURL());
 
     OkHttpClient client = new OkHttpClient().newBuilder().build();
-    String jsonBody = new Gson().toJson(apiPostRequest);
+    String jsonBody = new Gson().toJson(apiPutRequest);
     RequestBody requestBody = RequestBody.create(jsonBody, MediaType.get("application/json"));
 
     okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
         .url(url)
         .put(requestBody)
+        .addHeader("Accept", "application/json")
+        .addHeader("Content-Type", "application/json")
+        .addHeader("Authorization", "Bearer " + ParetoAPI.jwt);
+
+    okhttp3.Request request = requestBuilder.build();
+    okhttp3.Response response = client.newCall(request).execute();
+
+    int responseCode = response.code();
+    if (responseCode > 299) {
+        throw new Exception("POST Request Failed: " + response.message());
+    }
+    return new Gson().fromJson(response.body().string(), ApiResponse.class);
+  }
+  
+  public ApiResponse delete(Map<String, Object> apiDeleteRequest) throws Exception {
+
+    String version = ParetoAPI.apiVersion == null ? "" : "/" + ParetoAPI.apiVersion;
+    URL url = new URL(ParetoAPI.host + version + getRelativeURL());
+
+    OkHttpClient client = new OkHttpClient().newBuilder().build();
+    String jsonBody = new Gson().toJson(apiDeleteRequest);
+    RequestBody requestBody = RequestBody.create(jsonBody, MediaType.get("application/json"));
+
+    okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
+        .url(url)
+        .delete(requestBody)
         .addHeader("Accept", "application/json")
         .addHeader("Content-Type", "application/json")
         .addHeader("Authorization", "Bearer " + ParetoAPI.jwt);

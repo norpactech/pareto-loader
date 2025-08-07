@@ -3,6 +3,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.norpactech.pf.loader.dto.TenantDeleteApiRequest;
 import com.norpactech.pf.loader.dto.TenantPostApiRequest;
 import com.norpactech.pf.loader.dto.TenantPutApiRequest;
 import com.norpactech.pf.loader.model.Tenant;
@@ -21,6 +22,9 @@ public class LoadTenant extends BaseLoader {
   public void load(String filePath) throws Exception {
     
     logger.info("Beginning Tenant Load from: " + getFullPath());
+    int persisted = 0;
+    int deleted = 0;
+    int errors = 0;
 
     try {
       for (CSVRecord csvRecord : this.getCsvParser()) {
@@ -58,8 +62,20 @@ public class LoadTenant extends BaseLoader {
             response = tenantRepository.save(request);
           }
           if (response.getData() == null) {
-            logger.error(this.getClass().getName() + " failed for: " + tenantName);
+            logger.error(this.getClass().getName() + " failed for: " + tenantName + " " + response.getMeta().getDetail());
+            errors++;
           }
+          else {
+            persisted++;
+          }
+        }
+        else if (action.startsWith("d") && tenant != null) {
+          TenantDeleteApiRequest request = new TenantDeleteApiRequest();
+          request.setId(tenant.getId());
+          request.setUpdatedAt(tenant.getUpdatedAt());
+          request.setUpdatedBy(Constant.THIS_PROCESS_DELETED);
+          tenantRepository.delete(request);
+          deleted++;
         }
       }
     }
@@ -70,6 +86,6 @@ public class LoadTenant extends BaseLoader {
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed Tenant Load");
+    logger.info("Completed Tenant Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }  

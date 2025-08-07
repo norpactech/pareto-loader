@@ -10,6 +10,7 @@ public class LoadAll {
     
     logger.info("Beginning Load All");
     new LoadTenant(filePath, "Tenant.csv").load(filePath);
+    new LoadSchema(filePath, "Schema.csv").load(filePath);
     
     logger.info("Completed Load All");
   }
