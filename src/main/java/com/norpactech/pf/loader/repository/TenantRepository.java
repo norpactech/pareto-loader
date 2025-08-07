@@ -7,7 +7,10 @@ package com.norpactech.pf.loader.repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.norpactech.pf.loader.dto.TenantPostApiRequest;
+import com.norpactech.pf.loader.dto.TenantPutApiRequest;
 import com.norpactech.pf.loader.model.Tenant;
+import com.norpactech.pf.loader.utils.ApiResponse;
 
 public class TenantRepository extends ParetoApiRepository<Tenant> {
   
@@ -20,5 +23,13 @@ public class TenantRepository extends ParetoApiRepository<Tenant> {
 
   public Tenant findOne(String name) throws Exception {
     return findOne(Tenant.class, new HashMap<>(Map.of("name", name)));
+  }
+  
+  public ApiResponse save(TenantPostApiRequest request) throws Exception {
+    return post(toParams(request));
   }  
+  
+  public ApiResponse save(TenantPutApiRequest request) throws Exception {
+    return put(toParams(request));
+  }      
 }

@@ -26,9 +26,7 @@ public class ParetoAPI {
 
   public static void configure(
       String thatHost, 
-      String thatApiVersion, 
-      String tenantName, 
-      String schemaName, 
+      String thatApiVersion,      
       String username, 
       String password) throws Exception {
 

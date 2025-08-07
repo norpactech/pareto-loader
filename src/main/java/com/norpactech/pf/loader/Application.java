@@ -21,9 +21,7 @@ public class Application {
     String password   = System.getenv("PARETO_PASSWORD");
     String factoryURL = System.getenv("PARETO_FACTORY_URL");
     String apiVersion = System.getenv("PARETO_API_VERSION");
-
-    String tenant = System.getenv("TENANT");
-    String schema = System.getenv("SCHEMA");
+    String filePath   = System.getenv("IMPORT_FILE_PATH");
 
     logger.info("Beginning Pareto Loader");
 
@@ -47,19 +45,14 @@ public class Application {
       System.exit(1);
     }    
 
-    if (StringUtils.isEmpty(tenant)) {
-      logger.error("Null or empty Tenant. Set environment variable: TENANT. Terminating...");
-      System.exit(1);
-    }    
-    
-    if (StringUtils.isEmpty(schema)) {
-      logger.error("Null or empty Schema. Set environment variable: SCHEMA. Terminating...");
+    if (StringUtils.isEmpty(filePath)) {
+      logger.error("Null or empty Import File Path. Set environment variable: IMPORT_FILE_PATH. Terminating...");
       System.exit(1);
     }    
 
     try {
-      ParetoAPI.configure(factoryURL, apiVersion, tenant, schema, username, password);
-      LoadAll.loadAll();
+      ParetoAPI.configure(factoryURL, apiVersion, username, password);
+      LoadAll.load(filePath);
       System.exit(0);
     }
     catch (Exception e) {

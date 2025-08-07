@@ -6,9 +6,10 @@ public class LoadAll {
 
   private static final Logger logger = LoggerFactory.getLogger(LoadAll.class);
   
-  public static void loadAll() throws Exception {
+  public static void load(String filePath) throws Exception {
     
     logger.info("Beginning Load All");
+    new LoadTenant(filePath, "Tenant.csv").load(filePath);
     
     logger.info("Completed Load All");
   }

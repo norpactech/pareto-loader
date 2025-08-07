@@ -9,7 +9,8 @@ import java.time.format.DateTimeFormatter;
 public class Constant {
 
   public static final String SYSTEM_TENANT = "system";
-  public static final String SCHEMA_CRAWLER_CONTEXT = "schemacrawler";
+  public static final String THIS_PROCESS_CREATED = "pareto-loader-created";
+  public static final String THIS_PROCESS_UPDATED = "pareto-loader-updated";
     
   public static final String CARDINALITY_TABLE_TYPE = "cardinality";
   public static final String CARDINALITY_STRENGTH_TABLE_TYPE = "cardinality_strength";
