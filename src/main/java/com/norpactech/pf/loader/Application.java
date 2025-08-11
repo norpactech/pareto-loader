@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.norpactech.pf.loader.config.ParetoAPI;
+import com.norpactech.pf.config.ParetoAPI;
 import com.norpactech.pf.loader.service.LoadAll;
 
 public class Application {

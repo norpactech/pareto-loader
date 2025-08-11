@@ -7,9 +7,9 @@ import com.norpactech.pf.loader.dto.TenantDeleteApiRequest;
 import com.norpactech.pf.loader.dto.TenantPostApiRequest;
 import com.norpactech.pf.loader.dto.TenantPutApiRequest;
 import com.norpactech.pf.loader.model.Tenant;
-import com.norpactech.pf.loader.utils.ApiResponse;
-import com.norpactech.pf.loader.utils.Constant;
-import com.norpactech.pf.loader.utils.TextUtils;
+import com.norpactech.pf.utils.ApiResponse;
+import com.norpactech.pf.utils.Constant;
+import com.norpactech.pf.utils.TextUtils;
 
 public class LoadTenant extends BaseLoader {
 

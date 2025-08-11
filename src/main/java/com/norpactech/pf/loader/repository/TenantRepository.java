@@ -7,13 +7,14 @@ package com.norpactech.pf.loader.repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.TenantDeleteApiRequest;
-import com.norpactech.pf.loader.dto.TenantPostApiRequest;
 import com.norpactech.pf.loader.dto.TenantPutApiRequest;
-import com.norpactech.pf.loader.model.Tenant;
-import com.norpactech.pf.loader.utils.ApiResponse;
+import com.norpactech.pf.loader.dto.TenantPostApiRequest;
 
-public class TenantRepository extends ParetoApiRepository<Tenant> {
+import com.norpactech.pf.loader.model.Tenant;
+
+public class TenantRepository extends ParetoNativeRepository<Tenant> {
   
   private static final String RELATIVE_URL = "/tenant";
 
@@ -33,8 +34,7 @@ public class TenantRepository extends ParetoApiRepository<Tenant> {
   public ApiResponse save(TenantPutApiRequest request) throws Exception {
     return put(toParams(request));
   } 
-  
   public ApiResponse delete(TenantDeleteApiRequest request) throws Exception {
     return delete(toParams(request));
-  }      
+  }
 }

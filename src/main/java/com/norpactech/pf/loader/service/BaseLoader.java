@@ -12,11 +12,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.norpactech.pf.loader.repository.SchemaRepository;
 import com.norpactech.pf.loader.repository.TenantRepository;
+import com.norpactech.pf.loader.repository.UserRepository;
 
 public abstract class BaseLoader {
 
   protected static final TenantRepository tenantRepository = new TenantRepository();
   protected static final SchemaRepository schemaRepository = new SchemaRepository();
+  protected static final UserRepository userRepository = new UserRepository();
 
   private String filePath;
   private String fileName;

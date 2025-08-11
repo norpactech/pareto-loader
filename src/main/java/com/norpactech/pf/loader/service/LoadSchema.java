@@ -6,11 +6,9 @@ import org.slf4j.LoggerFactory;
 import com.norpactech.pf.loader.dto.SchemaDeleteApiRequest;
 import com.norpactech.pf.loader.dto.SchemaPostApiRequest;
 import com.norpactech.pf.loader.dto.SchemaPutApiRequest;
-import com.norpactech.pf.loader.model.Schema;
-import com.norpactech.pf.loader.model.Tenant;
-import com.norpactech.pf.loader.utils.ApiResponse;
-import com.norpactech.pf.loader.utils.Constant;
-import com.norpactech.pf.loader.utils.TextUtils;
+import com.norpactech.pf.utils.ApiResponse;
+import com.norpactech.pf.utils.Constant;
+import com.norpactech.pf.utils.TextUtils;
 
 public class LoadSchema extends BaseLoader {
 
@@ -38,12 +36,12 @@ public class LoadSchema extends BaseLoader {
         var description = TextUtils.toString(csvRecord.get("description"));
         var database = TextUtils.toString(csvRecord.get("database"));
         
-        Tenant tenant = tenantRepository.findOne(tenantName);
+        var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
           logger.error("Tenant {} not found. Ignoring Schema {}.", tenantName, name);
           continue;
         }
-        Schema schema = schemaRepository.findOne(tenant.getId(), name);
+        var schema = schemaRepository.findOne(tenant.getId(), name);
         ApiResponse response = null; 
             
         if (action.startsWith("p")) {
