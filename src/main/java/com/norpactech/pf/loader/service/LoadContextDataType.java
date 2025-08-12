@@ -18,9 +18,9 @@ public class LoadContextDataType extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
-    logger.info("Beginning User Load from: " + getFullPath());
+    logger.info("Beginning Context Data Type Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -43,25 +43,25 @@ public class LoadContextDataType extends BaseLoader {
 
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
-          logger.error("Tenant {} not found. Ignoring ContextDataType {}.", tenantName, name);
+          logger.error("Tenant {} not found. Ignoring Context Data Type {}.", tenantName, name);
           continue;
         }
 
         var schema = schemaRepository.findOne(tenant.getId(), schemaName);
         if (schema == null) {
-          logger.error("Schema {} not found. Ignoring ContextDataType {}.", schemaName, name);
+          logger.error("Schema {} not found. Ignoring Context Data Type {}.", schemaName, name);
           continue;
         }        
 
         var context = contextRepository.findOne(contextName);
         if (context == null) {
-          logger.error("Constext {} not found. Ignoring ContextDataType {}.", contextName, name);
+          logger.error("Constext {} not found. Ignoring Context Data Type {}.", contextName, name);
           continue;
         }
 
         var genericDataType = genericDataTypeRepository.findOne(tenant.getId(), genericName);
         if (genericDataType == null) {
-          logger.error("Generic Data Type {} not found. Ignoring ContextDataType {}.", genericName, name);
+          logger.error("Generic Data Type {} not found. Ignoring Context Data Type {}.", genericName, name);
           continue;
         }
         var contextDataType = contextDataTypeRepository.findOne(context.getId(), genericDataType.getId());
@@ -106,7 +106,7 @@ public class LoadContextDataType extends BaseLoader {
             persisted++;
           }          
         }
-        else if (action.startsWith("d") && name != null) {
+        else if (action.startsWith("d") && contextDataType != null) {
           var request = new UserDeleteApiRequest();
           request.setId(contextDataType.getId());
           request.setUpdatedAt(contextDataType.getUpdatedAt());
@@ -117,12 +117,12 @@ public class LoadContextDataType extends BaseLoader {
       }
     }
     catch (Exception e) {
-      logger.error("Error loading users", e);
+      logger.error("Error Loading Context Data Type {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed User Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Context Data Type Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }

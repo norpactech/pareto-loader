@@ -93,12 +93,12 @@ public class LoadProject extends BaseLoader {
       }
     }
     catch (Exception e) {
-      e.getStackTrace();
+      logger.error("Error Loading Project {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed Schema Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Project Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }  

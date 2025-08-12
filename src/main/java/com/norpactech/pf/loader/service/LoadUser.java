@@ -23,7 +23,7 @@ public class LoadUser extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
     logger.info("Beginning User Load from: " + getFullPath());
     int persisted = 0;
@@ -50,7 +50,7 @@ public class LoadUser extends BaseLoader {
         
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
-          logger.error("Tenant {} not found. Ignoring Schema {}.", tenantName, email);
+          logger.error("Tenant {} not found. Ignoring User {}.", tenantName, email);
           continue;
         }
         var user = userRepository.findOne(email);
@@ -141,7 +141,7 @@ public class LoadUser extends BaseLoader {
       }  // for
     }
     catch (Exception e) {
-      logger.error("Error loading users", e);
+      logger.error("Error Loading User {}", e.getMessage());
       throw e;
     }
     finally {

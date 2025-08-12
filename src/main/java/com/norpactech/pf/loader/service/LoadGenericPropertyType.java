@@ -20,9 +20,9 @@ public class LoadGenericPropertyType extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
-    logger.info("Beginning User Load from: " + getFullPath());
+    logger.info("Beginning Generic Property Type Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -45,13 +45,13 @@ public class LoadGenericPropertyType extends BaseLoader {
 
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
-          logger.error("Tenant {} not found. Ignoring GenericPropertyType {}.", tenantName, name);
+          logger.error("Tenant {} not found. Ignoring Generic Property Type {}.", tenantName, name);
           continue;
         }
 
         var genericDataType = genericDataTypeRepository.findOne(tenant.getId(), genericDataTypeName);
         if (genericDataType == null) {
-          logger.error("Generic Data Type {} not found. Ignoring GenericPropertyType {}.", genericDataTypeName, name);
+          logger.error("Generic Data Type {} not found. Ignoring Generic Property Type {}.", genericDataTypeName, name);
           continue;
         }        
 
@@ -59,7 +59,7 @@ public class LoadGenericPropertyType extends BaseLoader {
         if (StringUtils.isNotEmpty(validationName)) {
           validation = validationRepository.findOne(tenant.getId(), validationName);
           if (validation == null) {
-            logger.error("Validation {} not found. Ignoring GenericPropertyType {}.", validationName, name);
+            logger.error("Validation {} not found. Ignoring Generic Property Type {}.", validationName, name);
             continue;
           }        
         }        
@@ -107,7 +107,7 @@ public class LoadGenericPropertyType extends BaseLoader {
             persisted++;
           }          
         }
-        else if (action.startsWith("d") && name != null) {
+        else if (action.startsWith("d") && genericDataType != null) {
           var request = new UserDeleteApiRequest();
           request.setId(genericDataType.getId());
           request.setUpdatedAt(genericDataType.getUpdatedAt());
@@ -118,12 +118,12 @@ public class LoadGenericPropertyType extends BaseLoader {
       }
     }
     catch (Exception e) {
-      logger.error("Error loading users", e);
+      logger.error("Error Loading Generic Property Type {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed User Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Generic Property Type Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }

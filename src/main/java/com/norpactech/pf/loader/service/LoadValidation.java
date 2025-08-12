@@ -21,9 +21,9 @@ public class LoadValidation extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
-    logger.info("Beginning User Load from: " + getFullPath());
+    logger.info("Beginning Validation Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -53,13 +53,15 @@ public class LoadValidation extends BaseLoader {
           continue;
         }
 
-        RefTableType refTableType = refTableTypeRepository.findOne (systemTenant.getId(), EnumRefTableType.VALIDATION_TYPE.name());
+        RefTableType refTableType = refTableTypeRepository.findOne(systemTenant.getId(), EnumRefTableType.VALIDATION_TYPE.name());
         if (refTableType == null) {
+          logger.error("Reference Table Type {} not found. Ignoring Validation {}.", EnumRefTableType.VALIDATION_TYPE.name(), name);
           continue;
         }        
         
         RefTables refTables = refTablesRepository.findOne(refTableType.getId(), validationType);
         if (refTables == null) {
+          logger.error("Reference Table Entry {} not found. Ignoring Validation {}.", validationType, name);
           continue;
         }  
         var validation = validationRepository.findOne(tenant.getId(), name);
@@ -102,7 +104,7 @@ public class LoadValidation extends BaseLoader {
             persisted++;
           }          
         }
-        else if (action.startsWith("d") && name != null) {
+        else if (action.startsWith("d") && validation != null) {
           var request = new UserDeleteApiRequest();
           request.setId(validation.getId());
           request.setUpdatedAt(validation.getUpdatedAt());
@@ -113,12 +115,12 @@ public class LoadValidation extends BaseLoader {
       }
     }
     catch (Exception e) {
-      logger.error("Error loading users", e);
+      logger.error("Error Loading Validation {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed User Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Validation Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }

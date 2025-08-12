@@ -9,19 +9,18 @@ public class LoadAll {
   public static void load(String filePath) throws Exception {
     
     logger.info("Beginning Load All from: {}", filePath);
-/*
-    new LoadTenant(filePath, "Tenant.csv").load(filePath);
-    new LoadSchema(filePath, "Schema.csv").load(filePath);
-    new LoadUser(filePath, "User.csv").load(filePath); // includes TenantUser
-    new LoadValidation(filePath, "Validation.csv").load(filePath);
-    new LoadGenericDataType(filePath, "GenericDataType.csv").load(filePath);
-    new LoadGenericDataTypeAttribute(filePath, "GenericDataTypeAttribute.csv").load(filePath);
-    new LoadGenericPropertyType(filePath, "GenericPropertyType.csv").load(filePath);
-    new LoadContextDataType(filePath, "ContextDataType.csv").load(filePath);
-    new LoadContextPropertyType(filePath, "ContextPropertyType.csv").load(filePath);
+
+    new LoadTenant(filePath, "Tenant.csv").load();
+    new LoadSchema(filePath, "Schema.csv").load();
+    new LoadUser(filePath, "User.csv").load(); // includes TenantUser
+    new LoadValidation(filePath, "Validation.csv").load();
+    new LoadGenericDataType(filePath, "GenericDataType.csv").load();
+    new LoadGenericDataTypeAttribute(filePath, "GenericDataTypeAttribute.csv").load();
+    new LoadGenericPropertyType(filePath, "GenericPropertyType.csv").load();
+    new LoadContextDataType(filePath, "ContextDataType.csv").load();
+    new LoadContextPropertyType(filePath, "ContextPropertyType.csv").load();
     new LoadProject(filePath, "Project.csv").load();
     new LoadProjectComponent(filePath, "ProjectComponent.csv").load();
-*/
     new LoadProjectComponentProperty(filePath, "ProjectComponentProperty.csv").load();
     
     logger.info("Completed Load All");

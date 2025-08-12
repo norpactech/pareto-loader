@@ -21,9 +21,9 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
-    logger.info("Beginning User Load from: " + getFullPath());
+    logger.info("Beginning Generic Data Type Attribute Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -43,25 +43,25 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
 
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
-          logger.error("Tenant {} not found. Ignoring ContextDataType {}.", tenantName, name);
+          logger.error("Tenant {} not found. Ignoring Generic Data Type Attribute {}.", tenantName, name);
           continue;
         }
 
         var schema = schemaRepository.findOne(tenant.getId(), schemaName);
         if (schema == null) {
-          logger.error("Schema {} not found. Ignoring ContextDataType {}.", schemaName, name);
+          logger.error("Schema {} not found. Ignoring Generic Data Type Attribute {}.", schemaName, name);
           continue;
         }        
         
         var genericDataType = genericDataTypeRepository.findOne(tenant.getId(), genericDataTypeName);
         if (genericDataType == null) {
-          logger.error("Generic Data Type {} not found. Ignoring GenericDataTypeAttribute {}.", genericDataTypeName, name);
+          logger.error("Generic Data Type {} not found. Ignoring Generic Data Type Attribute {}.", genericDataTypeName, name);
           continue;
         }        
 
         var systemTenant = tenantRepository.findOne(Constant.SYSTEM_TENANT);
         if (systemTenant == null) {
-          logger.error("System Tenant {} not found. Ignoring Validation {}.", Constant.SYSTEM_TENANT, name);
+          logger.error("System Tenant {} not found. Ignoring Generic Data Type Attribute {}.", Constant.SYSTEM_TENANT, name);
           continue;
         }
         
@@ -73,7 +73,7 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
         
         RefTables refTables = refTablesRepository.findOne(refTableType.getId(), attributeDataType);
         if (refTables == null) {
-          logger.error("Reference Table {} not found. Ignoring Generic Data Type Attribute {}.", attributeDataType, name);
+          logger.error("Reference Table Entry {} not found. Ignoring Generic Data Type Attribute {}.", attributeDataType, name);
           continue;
         }  
         
@@ -113,7 +113,7 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
             persisted++;
           }          
         }
-        else if (action.startsWith("d") && name != null) {
+        else if (action.startsWith("d") && genericDataTypeAttribute != null) {
           var request = new UserDeleteApiRequest();
           request.setId(genericDataType.getId());
           request.setUpdatedAt(genericDataType.getUpdatedAt());
@@ -124,12 +124,12 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
       }
     }
     catch (Exception e) {
-      logger.error("Error loading users", e);
+      logger.error("Error Loading Generic Data Type Attribute {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed User Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Generic Data Type Attribute Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }

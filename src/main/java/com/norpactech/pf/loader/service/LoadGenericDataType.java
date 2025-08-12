@@ -18,9 +18,9 @@ public class LoadGenericDataType extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
-    logger.info("Beginning User Load from: " + getFullPath());
+    logger.info("Beginning Generic Data Type Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -39,7 +39,7 @@ public class LoadGenericDataType extends BaseLoader {
 
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
-          logger.error("Tenant {} not found. Ignoring ContextDataType {}.", tenantName, name);
+          logger.error("Tenant {} not found. Ignoring GenericDataType {}.", tenantName, name);
           continue;
         }
         
@@ -81,7 +81,7 @@ public class LoadGenericDataType extends BaseLoader {
             persisted++;
           }          
         }
-        else if (action.startsWith("d") && name != null) {
+        else if (action.startsWith("d") && genericDataType != null) {
           var request = new UserDeleteApiRequest();
           request.setId(genericDataType.getId());
           request.setUpdatedAt(genericDataType.getUpdatedAt());
@@ -92,12 +92,12 @@ public class LoadGenericDataType extends BaseLoader {
       }
     }
     catch (Exception e) {
-      logger.error("Error loading users", e);
+      logger.error("Error Loading Generic Data Type {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed User Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Generic Data Type Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }

@@ -19,7 +19,7 @@ public class LoadTenant extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
     logger.info("Beginning Tenant Load from: " + getFullPath());
     int persisted = 0;
@@ -80,7 +80,7 @@ public class LoadTenant extends BaseLoader {
       }
     }
     catch (Exception e) {
-      e.getStackTrace();
+      logger.error("Error Loading Tenant {}", e.getMessage());
       throw e;
     }
     finally {

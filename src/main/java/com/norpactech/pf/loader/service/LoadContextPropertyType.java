@@ -18,9 +18,9 @@ public class LoadContextPropertyType extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
-    logger.info("Beginning User Load from: " + getFullPath());
+    logger.info("Beginning Context Property Type Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -43,31 +43,31 @@ public class LoadContextPropertyType extends BaseLoader {
 
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
-          logger.error("Tenant {} not found. Ignoring ContextPropertyType.", tenantName);
+          logger.error("Tenant {} not found. Ignoring Context Property Type.", tenantName);
           continue;
         }
 
         var schema = schemaRepository.findOne(tenant.getId(), schemaName);
         if (schema == null) {
-          logger.error("Schema {} not found. Ignoring ContextPropertyType {}.", schemaName);
+          logger.error("Schema {} not found. Ignoring Context Property Type.", schemaName);
           continue;
         }        
 
         var context = contextRepository.findOne(contextName);
         if (context == null) {
-          logger.error("Context {} not found. Ignoring ContextPropertyType {}.", contextName);
+          logger.error("Context {} not found. Ignoring Context Property Type.", contextName);
           continue;
         }
 
         var genericDataType = genericDataTypeRepository.findOne(tenant.getId(), genericDataTypeName);
         if (genericDataType == null) {
-          logger.error("Generic Data Type {} not found. Ignoring ContextPropertyType {}.", genericDataTypeName);
+          logger.error("Generic Data Type {} not found. Ignoring Context Property Type.", genericDataTypeName);
           continue;
         }
         
         var genericPropertyType = genericPropertyTypeRepository.findOne(genericDataType.getId(), genericPropertyTypeName);
         if (genericPropertyType == null) {
-          logger.error("Generic Property Type {} not found. Ignoring ContextPropertyType {}.", genericPropertyTypeName);
+          logger.error("Generic Property Type {} not found. Ignoring Context Property Type.", genericPropertyTypeName);
           continue;
         }
         var contextPropertyType = contextPropertyTypeRepository.findOne(context.getId(), genericPropertyType.getId());
@@ -121,12 +121,12 @@ public class LoadContextPropertyType extends BaseLoader {
       }
     }
     catch (Exception e) {
-      logger.error("Error loading users", e);
+      logger.error("Error Loading Context Property Type {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed User Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Context Property Type Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }

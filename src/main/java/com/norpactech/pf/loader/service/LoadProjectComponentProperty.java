@@ -93,10 +93,10 @@ public class LoadProjectComponentProperty extends BaseLoader {
             persisted++;
           }
         }
-        else if (action.startsWith("d") && project != null) {
+        else if (action.startsWith("d") && projectComponentProperty != null) {
           ProjectDeleteApiRequest request = new ProjectDeleteApiRequest();
-          request.setId(project.getId());
-          request.setUpdatedAt(project.getUpdatedAt());
+          request.setId(projectComponentProperty.getId());
+          request.setUpdatedAt(projectComponentProperty.getUpdatedAt());
           request.setUpdatedBy(Constant.THIS_PROCESS_DELETED);
           projectRepository.delete(request);
           deleted++;
@@ -104,12 +104,12 @@ public class LoadProjectComponentProperty extends BaseLoader {
       }
     }
     catch (Exception e) {
-      e.getStackTrace();
+      logger.error("Error Loading Project Component Property {}", e.getMessage());
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed Schema Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed Project Component Property Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }  

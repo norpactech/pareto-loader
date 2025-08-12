@@ -18,7 +18,7 @@ public class LoadSchema extends BaseLoader {
     super(filePath, fileName);
   }
   
-  public void load(String filePath) throws Exception {
+  public void load() throws Exception {
     
     logger.info("Beginning Schema Load from: " + getFullPath());
     int persisted = 0;
@@ -83,7 +83,7 @@ public class LoadSchema extends BaseLoader {
       }
     }
     catch (Exception e) {
-      e.getStackTrace();
+      logger.error("Error Loading Schema: {}", e.getMessage());
       throw e;
     }
     finally {
