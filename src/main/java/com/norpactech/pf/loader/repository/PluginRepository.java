@@ -27,8 +27,8 @@ public class PluginRepository extends ParetoNativeRepository<Plugin> {
     return findOne(Plugin.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public Plugin findOne(UUID id_context, String name) throws Exception {
-    return findOne(Plugin.class, new HashMap<>(Map.of("id_context", id_context, "name", name)));
+  public Plugin findOne(UUID idContext, String name) throws Exception {
+    return findOne(Plugin.class, new HashMap<>(Map.of("idContext", idContext, "name", name)));
   }
   
   public ApiResponse save(PluginPostApiRequest request) throws Exception {

@@ -27,8 +27,8 @@ public class ValidationRepository extends ParetoNativeRepository<Validation> {
     return findOne(Validation.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public Validation findOne(UUID id_tenant, String name) throws Exception {
-    return findOne(Validation.class, new HashMap<>(Map.of("id_tenant", id_tenant, "name", name)));
+  public Validation findOne(UUID idTenant, String name) throws Exception {
+    return findOne(Validation.class, new HashMap<>(Map.of("idTenant", idTenant, "name", name)));
   }
   
   public ApiResponse save(ValidationPostApiRequest request) throws Exception {

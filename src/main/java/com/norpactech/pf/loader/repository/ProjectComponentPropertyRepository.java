@@ -27,8 +27,8 @@ public class ProjectComponentPropertyRepository extends ParetoNativeRepository<P
     return findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public ProjectComponentProperty findOne(UUID id_project_component, String data_object_filter, String property_filter) throws Exception {
-    return findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("id_project_component", id_project_component, "data_object_filter", data_object_filter, "property_filter", property_filter)));
+  public ProjectComponentProperty findOne(UUID idProjectComponent, String dataObjectFilter, String propertyFilter) throws Exception {
+    return findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("idProjectComponent", idProjectComponent, "dataObjectFilter", dataObjectFilter, "propertyFilter", propertyFilter)));
   }
   
   public ApiResponse save(ProjectComponentPropertyPostApiRequest request) throws Exception {

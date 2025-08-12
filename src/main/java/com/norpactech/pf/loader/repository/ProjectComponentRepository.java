@@ -27,8 +27,8 @@ public class ProjectComponentRepository extends ParetoNativeRepository<ProjectCo
     return findOne(ProjectComponent.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public ProjectComponent findOne(UUID id_project, String name) throws Exception {
-    return findOne(ProjectComponent.class, new HashMap<>(Map.of("id_project", id_project, "name", name)));
+  public ProjectComponent findOne(UUID idProject, String name) throws Exception {
+    return findOne(ProjectComponent.class, new HashMap<>(Map.of("idProject", idProject, "name", name)));
   }
   
   public ApiResponse save(ProjectComponentPostApiRequest request) throws Exception {

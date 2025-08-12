@@ -27,8 +27,8 @@ public class SchemaRepository extends ParetoNativeRepository<Schema> {
     return findOne(Schema.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public Schema findOne(UUID id_tenant, String name) throws Exception {
-    return findOne(Schema.class, new HashMap<>(Map.of("id_tenant", id_tenant, "name", name)));
+  public Schema findOne(UUID idTenant, String name) throws Exception {
+    return findOne(Schema.class, new HashMap<>(Map.of("idTenant", idTenant, "name", name)));
   }
   
   public ApiResponse save(SchemaPostApiRequest request) throws Exception {

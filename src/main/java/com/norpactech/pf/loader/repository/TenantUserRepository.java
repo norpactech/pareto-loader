@@ -22,8 +22,8 @@ public class TenantUserRepository extends ParetoNativeRepository<TenantUser> {
     return RELATIVE_URL;
   }
 
-  public TenantUser get(UUID id_tenant, UUID id_user) throws Exception {
-    return findOne(TenantUser.class, new HashMap<>(Map.of("id_tenant", id_tenant, "id_user", id_user)));
+  public TenantUser get(UUID idTenant, UUID idUser) throws Exception {
+    return findOne(TenantUser.class, new HashMap<>(Map.of("idTenant", idTenant, "idUser", idUser)));
   }
   
   public ApiResponse save(TenantUserPostApiRequest request) throws Exception {

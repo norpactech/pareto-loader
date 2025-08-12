@@ -27,8 +27,8 @@ public class GenericDataTypeRepository extends ParetoNativeRepository<GenericDat
     return findOne(GenericDataType.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public GenericDataType findOne(UUID id_tenant, String name) throws Exception {
-    return findOne(GenericDataType.class, new HashMap<>(Map.of("id_tenant", id_tenant, "name", name)));
+  public GenericDataType findOne(UUID idTenant, String name) throws Exception {
+    return findOne(GenericDataType.class, new HashMap<>(Map.of("idTenant", idTenant, "name", name)));
   }
   
   public ApiResponse save(GenericDataTypePostApiRequest request) throws Exception {

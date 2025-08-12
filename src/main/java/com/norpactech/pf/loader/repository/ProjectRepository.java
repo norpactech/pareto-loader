@@ -27,8 +27,8 @@ public class ProjectRepository extends ParetoNativeRepository<Project> {
     return findOne(Project.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public Project findOne(UUID id_schema, String name) throws Exception {
-    return findOne(Project.class, new HashMap<>(Map.of("id_schema", id_schema, "name", name)));
+  public Project findOne(UUID idSchema, String name) throws Exception {
+    return findOne(Project.class, new HashMap<>(Map.of("idSchema", idSchema, "name", name)));
   }
   
   public ApiResponse save(ProjectPostApiRequest request) throws Exception {

@@ -27,8 +27,8 @@ public class RefTablesRepository extends ParetoNativeRepository<RefTables> {
     return findOne(RefTables.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public RefTables findOne(UUID id_ref_table_type, String name) throws Exception {
-    return findOne(RefTables.class, new HashMap<>(Map.of("id_ref_table_type", id_ref_table_type, "name", name)));
+  public RefTables findOne(UUID idRefTableType, String name) throws Exception {
+    return findOne(RefTables.class, new HashMap<>(Map.of("idRefTableType", idRefTableType, "name", name)));
   }
   
   public ApiResponse save(RefTablesPostApiRequest request) throws Exception {
