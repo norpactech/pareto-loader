@@ -17,11 +17,11 @@ public class LoadAll {
     new LoadGenericDataType(filePath, "GenericDataType.csv").load(filePath);
     new LoadGenericDataTypeAttribute(filePath, "GenericDataTypeAttribute.csv").load(filePath);
     new LoadGenericPropertyType(filePath, "GenericPropertyType.csv").load(filePath);
-    */
     new LoadContextDataType(filePath, "ContextDataType.csv").load(filePath);
+    new LoadContextPropertyType(filePath, "ContextPropertyType.csv").load(filePath);
+    */
     
     /*
-      ContextPropertyTypeETL contextPropertyTypeETL;
       ProjectETL projectETL;
       ProjectComponentETL projectComponentETL;
       ProjectComponentPropertyETL projectComponentPropertyETL;
