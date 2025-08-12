@@ -20,6 +20,7 @@ public class LoadAll {
     new LoadContextDataType(filePath, "ContextDataType.csv").load(filePath);
     new LoadContextPropertyType(filePath, "ContextPropertyType.csv").load(filePath);
     */
+    new LoadProject(filePath, "Project.csv").load();
     
     /*
       ProjectETL projectETL;

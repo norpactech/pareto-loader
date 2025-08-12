@@ -56,7 +56,7 @@ public class Application {
       System.exit(0);
     }
     catch (Exception e) {
-      logger.info("Pareto Factory Loader Terminated Unexpectedly: {}", e.getMessage());
+      logger.error("Pareto Factory Loader Terminated Unexpectedly: " + e.getMessage());
       System.exit(1);
     }
   }
