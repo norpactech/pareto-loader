@@ -64,8 +64,7 @@ public class LoadContextDataType extends BaseLoader {
           logger.error("Generic Data Type {} not found. Ignoring ContextDataType {}.", genericName, name);
           continue;
         }
-        
-        var contextDataType = contextDataTypeRepository.findOne(context.getId(), name);
+        var contextDataType = contextDataTypeRepository.findOne(context.getId(), genericDataType.getId());
         ApiResponse response = null; 
         
         if (action.startsWith("p")) {

@@ -27,8 +27,8 @@ public class ContextDataTypeRepository extends ParetoNativeRepository<ContextDat
     return findOne(ContextDataType.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public ContextDataType findOne(UUID id_context, String name) throws Exception {
-    return findOne(ContextDataType.class, new HashMap<>(Map.of("id_context", id_context, "name", name)));
+  public ContextDataType findOne(UUID id_context, UUID id_generic_data_type) throws Exception {
+    return findOne(ContextDataType.class, new HashMap<>(Map.of("id_context", id_context, "id_generic_data_type", id_generic_data_type)));
   }
   
   public ApiResponse save(ContextDataTypePostApiRequest request) throws Exception {
