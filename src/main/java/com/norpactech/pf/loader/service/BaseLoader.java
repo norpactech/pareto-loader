@@ -10,15 +10,35 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 
+import com.norpactech.pf.loader.repository.ContextDataTypeRepository;
+import com.norpactech.pf.loader.repository.ContextPropertyTypeRepository;
+import com.norpactech.pf.loader.repository.GenericDataTypeAttributeRepository;
+import com.norpactech.pf.loader.repository.GenericDataTypeRepository;
+import com.norpactech.pf.loader.repository.GenericPropertyTypeRepository;
+import com.norpactech.pf.loader.repository.ProjectComponentPropertyRepository;
+import com.norpactech.pf.loader.repository.ProjectComponentRepository;
+import com.norpactech.pf.loader.repository.ProjectRepository;
 import com.norpactech.pf.loader.repository.SchemaRepository;
 import com.norpactech.pf.loader.repository.TenantRepository;
+import com.norpactech.pf.loader.repository.TenantUserRepository;
 import com.norpactech.pf.loader.repository.UserRepository;
+import com.norpactech.pf.loader.repository.ValidationRepository;
 
 public abstract class BaseLoader {
 
-  protected static final TenantRepository tenantRepository = new TenantRepository();
+  protected static final ContextDataTypeRepository contextDataTypeRepository = new ContextDataTypeRepository();
+  protected static final ContextPropertyTypeRepository contextPropertyTypeRepository = new ContextPropertyTypeRepository();
+  protected static final GenericDataTypeAttributeRepository genericDataTypeAttributeRepository = new GenericDataTypeAttributeRepository();
+  protected static final GenericDataTypeRepository genericDataTypeRepository = new GenericDataTypeRepository();
+  protected static final GenericPropertyTypeRepository genericPropertyTypeRepository = new GenericPropertyTypeRepository();
+  protected static final ProjectComponentPropertyRepository projectComponentPropertyRepository = new ProjectComponentPropertyRepository();
+  protected static final ProjectComponentRepository projectComponentRepository = new ProjectComponentRepository();
+  protected static final ProjectRepository projectRepository = new ProjectRepository();
   protected static final SchemaRepository schemaRepository = new SchemaRepository();
+  protected static final TenantRepository tenantRepository = new TenantRepository();
+  protected static final TenantUserRepository tenantUserRepository = new TenantUserRepository();
   protected static final UserRepository userRepository = new UserRepository();
+  protected static final ValidationRepository validationRepository = new ValidationRepository();
 
   private String filePath;
   private String fileName;

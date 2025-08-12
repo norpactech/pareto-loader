@@ -6,9 +6,11 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.norpactech.pf.loader.dto.TenantUserPostApiRequest;
 import com.norpactech.pf.loader.dto.UserDeleteApiRequest;
 import com.norpactech.pf.loader.dto.UserPostApiRequest;
 import com.norpactech.pf.loader.dto.UserPutApiRequest;
+import com.norpactech.pf.loader.model.TenantUser;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.utils.Constant;
 import com.norpactech.pf.utils.TextUtils;
@@ -97,10 +99,36 @@ public class LoadUser extends BaseLoader {
           }
           else {
             persisted++;
-          }
-          
+          }          
           user = userRepository.findOne(email);          
           tenant = tenantRepository.findOne(tenantName);
+          
+          if (user == null) {
+            throw new Exception("Null User prior to saving TenantUser: " + email);
+          }
+          if (tenant == null) {
+            throw new Exception("Null Tenant prior to saving TenantUser: " + tenantName);
+          }
+          TenantUser tenantUser = tenantUserRepository.get(tenant.getId(), user.getId());
+          if (tenantUser == null) {
+            TenantUserPostApiRequest request = new TenantUserPostApiRequest();
+            request.setIdTenant(tenant.getId());
+            request.setIdUser(user.getId());
+            tenantUserRepository.save(request);
+            
+            if (response.getData() == null) {
+              if (response.getError() != null) {
+                logger.error(response.getError().toString());
+              }
+              else {
+                logger.error(this.getClass().getName() + " failed for: " + email + " " + response.getMeta().getDetail());
+              }
+              errors++;
+            }
+            else {
+              persisted++;          
+            }          
+          }
         }
         else if (action.startsWith("d") && user != null) {
           var request = new UserDeleteApiRequest();
