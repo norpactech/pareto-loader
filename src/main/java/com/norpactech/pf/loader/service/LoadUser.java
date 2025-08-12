@@ -1,5 +1,6 @@
 package com.norpactech.pf.loader.service;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class LoadUser extends BaseLoader {
   
   public void load(String filePath) throws Exception {
     
-    logger.info("Beginning Schema Load from: " + getFullPath());
+    logger.info("Beginning User Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -43,7 +44,7 @@ public class LoadUser extends BaseLoader {
         String city = TextUtils.toString(csvRecord.get("city"));
         String state = TextUtils.toString(csvRecord.get("state"));
         String zipCode = TextUtils.toString(csvRecord.get("zip_code"));
-        LocalDateTime termsAccepted = LocalDateTime.now();
+        LocalDateTime termsAccepted = LocalDateTime.now(ZoneOffset.UTC);
         
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
@@ -66,10 +67,13 @@ public class LoadUser extends BaseLoader {
             request.setState(state);
             request.setZipCode(zipCode);
             request.setTermsAccepted(termsAccepted);
+            request.setCreatedBy(Constant.THIS_PROCESS_CREATED);
             response = userRepository.save(request);                 
           }
           else {
             var request = new UserPutApiRequest();
+            request.setId(user.getId());
+            request.setEmail(email);
             request.setLastName(lastName);
             request.setFirstName(firstName);
             request.setPhone(phone);
@@ -78,15 +82,25 @@ public class LoadUser extends BaseLoader {
             request.setCity(city);
             request.setState(state);
             request.setZipCode(zipCode);
+            request.setUpdatedAt(user.getUpdatedAt());
+            request.setUpdatedBy(Constant.THIS_PROCESS_UPDATED);
             response = userRepository.save(request);                 
           }
           if (response.getData() == null) {
-            logger.error(this.getClass().getName() + " failed for: " + email + " " + response.getMeta().getDetail());
+            if (response.getError() != null) {
+              logger.error(response.getError().toString());
+            }
+            else {
+              logger.error(this.getClass().getName() + " failed for: " + email + " " + response.getMeta().getDetail());
+            }
             errors++;
           }
           else {
             persisted++;
           }
+          
+          user = userRepository.findOne(email);          
+          tenant = tenantRepository.findOne(tenantName);
         }
         else if (action.startsWith("d") && user != null) {
           var request = new UserDeleteApiRequest();
@@ -99,12 +113,12 @@ public class LoadUser extends BaseLoader {
       }  // for
     }
     catch (Exception e) {
-      e.getStackTrace();
+      logger.error("Error loading users", e);
       throw e;
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
     }
-    logger.info("Completed Tenant Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
+    logger.info("Completed User Load with {} persisted, {} deleted, and {} errors", persisted, deleted, errors);
   }
 }

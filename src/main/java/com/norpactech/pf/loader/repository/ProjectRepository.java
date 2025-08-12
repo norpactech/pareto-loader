@@ -7,7 +7,6 @@ package com.norpactech.pf.loader.repository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.ProjectDeleteApiRequest;
 import com.norpactech.pf.loader.dto.ProjectPutApiRequest;
@@ -24,6 +23,10 @@ public class ProjectRepository extends ParetoNativeRepository<Project> {
     return RELATIVE_URL;
   }
 
+  public Project get(UUID id) throws Exception {
+    return findOne(Project.class, new HashMap<>(Map.of("id", id)));
+  }
+
   public Project findOne(UUID id_schema, String name) throws Exception {
     return findOne(Project.class, new HashMap<>(Map.of("id_schema", id_schema, "name", name)));
   }
@@ -35,6 +38,7 @@ public class ProjectRepository extends ParetoNativeRepository<Project> {
   public ApiResponse save(ProjectPutApiRequest request) throws Exception {
     return put(toParams(request));
   } 
+
   public ApiResponse delete(ProjectDeleteApiRequest request) throws Exception {
     return delete(toParams(request));
   }

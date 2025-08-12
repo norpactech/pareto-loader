@@ -7,7 +7,6 @@ package com.norpactech.pf.loader.repository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.GenericDataTypePutApiRequest;
 import com.norpactech.pf.loader.dto.GenericDataTypePostApiRequest;
@@ -24,6 +23,10 @@ public class GenericDataTypeRepository extends ParetoNativeRepository<GenericDat
     return RELATIVE_URL;
   }
 
+  public GenericDataType get(UUID id) throws Exception {
+    return findOne(GenericDataType.class, new HashMap<>(Map.of("id", id)));
+  }
+
   public GenericDataType findOne(UUID id_tenant, String name) throws Exception {
     return findOne(GenericDataType.class, new HashMap<>(Map.of("id_tenant", id_tenant, "name", name)));
   }
@@ -35,6 +38,7 @@ public class GenericDataTypeRepository extends ParetoNativeRepository<GenericDat
   public ApiResponse save(GenericDataTypePutApiRequest request) throws Exception {
     return put(toParams(request));
   } 
+
   public ApiResponse delete(GenericDataTypeDeleteApiRequest request) throws Exception {
     return delete(toParams(request));
   }

@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.norpactech.pf.loader.enums.EnumApiCodes;
@@ -159,6 +161,33 @@ public class ApiResponse {
           catch (IllegalArgumentException e) {
             throw new ApiResponseException(dateString + " is an unsuppored Timestamp format");
           }        
+        } 
+        // Handle LocalDateTime conversion from String
+        else if (field.getType() == LocalDateTime.class && fieldValue instanceof String) {
+          String dateString = (String) fieldValue;
+          try {
+            // Try parsing with ISO format
+            if (dateString.contains("T")) {
+              // Handle milliseconds and Z timezone if present
+              if (dateString.contains(".") && dateString.endsWith("Z")) {
+                fieldValue = LocalDateTime.parse(dateString, Constant.TIMESTAMP_FORMATTER);
+              } else if (dateString.endsWith("Z")) {
+                // If no milliseconds but has Z timezone
+                fieldValue = LocalDateTime.parse(dateString.substring(0, dateString.length() - 1), 
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+              } else {
+                // Standard ISO without Z
+                fieldValue = LocalDateTime.parse(dateString, 
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+              }
+            } else {
+              // Try standard date time format
+              fieldValue = LocalDateTime.parse(dateString, 
+                  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            }
+          } catch (Exception e) {
+            throw new ApiResponseException(dateString + " is an unsupported LocalDateTime format: " + e.getMessage());
+          }
         }
         field.set(instance, fieldValue);
       } 

@@ -4,7 +4,9 @@ package com.norpactech.pf.loader.repository;
  *  
  * For license details, see the LICENSE file in this project root.
  */
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.TenantUserDeleteApiRequest;
 import com.norpactech.pf.loader.dto.TenantUserPostApiRequest;
@@ -20,10 +22,14 @@ public class TenantUserRepository extends ParetoNativeRepository<TenantUser> {
     return RELATIVE_URL;
   }
 
+  public TenantUser get(UUID id_tenant, UUID id_user) throws Exception {
+    return findOne(TenantUser.class, new HashMap<>(Map.of("id_tenant", id_tenant, "id_user", id_user)));
+  }
   
   public ApiResponse save(TenantUserPostApiRequest request) throws Exception {
     return post(toParams(request));
   }  
+
   public ApiResponse delete(TenantUserDeleteApiRequest request) throws Exception {
     return delete(toParams(request));
   }

@@ -7,7 +7,6 @@ package com.norpactech.pf.loader.repository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.ValidationDeleteApiRequest;
 import com.norpactech.pf.loader.dto.ValidationPutApiRequest;
@@ -24,6 +23,10 @@ public class ValidationRepository extends ParetoNativeRepository<Validation> {
     return RELATIVE_URL;
   }
 
+  public Validation get(UUID id) throws Exception {
+    return findOne(Validation.class, new HashMap<>(Map.of("id", id)));
+  }
+
   public Validation findOne(UUID id_tenant, String name) throws Exception {
     return findOne(Validation.class, new HashMap<>(Map.of("id_tenant", id_tenant, "name", name)));
   }
@@ -35,6 +38,7 @@ public class ValidationRepository extends ParetoNativeRepository<Validation> {
   public ApiResponse save(ValidationPutApiRequest request) throws Exception {
     return put(toParams(request));
   } 
+
   public ApiResponse delete(ValidationDeleteApiRequest request) throws Exception {
     return delete(toParams(request));
   }

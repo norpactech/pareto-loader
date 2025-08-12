@@ -4,7 +4,9 @@ package com.norpactech.pf.loader.repository;
  *  
  * For license details, see the LICENSE file in this project root.
  */
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.ProjectComponentPropertyPostApiRequest;
 import com.norpactech.pf.loader.dto.ProjectComponentPropertyPutApiRequest;
@@ -21,6 +23,9 @@ public class ProjectComponentPropertyRepository extends ParetoNativeRepository<P
     return RELATIVE_URL;
   }
 
+  public ProjectComponentProperty get(UUID id) throws Exception {
+    return findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("id", id)));
+  }
   
   public ApiResponse save(ProjectComponentPropertyPostApiRequest request) throws Exception {
     return post(toParams(request));
@@ -29,6 +34,7 @@ public class ProjectComponentPropertyRepository extends ParetoNativeRepository<P
   public ApiResponse save(ProjectComponentPropertyPutApiRequest request) throws Exception {
     return put(toParams(request));
   } 
+
   public ApiResponse delete(ProjectComponentPropertyDeleteApiRequest request) throws Exception {
     return delete(toParams(request));
   }

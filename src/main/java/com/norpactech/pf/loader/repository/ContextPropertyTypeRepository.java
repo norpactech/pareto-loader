@@ -7,7 +7,6 @@ package com.norpactech.pf.loader.repository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.ContextPropertyTypePostApiRequest;
 import com.norpactech.pf.loader.dto.ContextPropertyTypePutApiRequest;
@@ -24,6 +23,10 @@ public class ContextPropertyTypeRepository extends ParetoNativeRepository<Contex
     return RELATIVE_URL;
   }
 
+  public ContextPropertyType get(UUID id) throws Exception {
+    return findOne(ContextPropertyType.class, new HashMap<>(Map.of("id", id)));
+  }
+
   public ContextPropertyType findOne(UUID id_context, UUID id_generic_property_type) throws Exception {
     return findOne(ContextPropertyType.class, new HashMap<>(Map.of("id_context", id_context, "id_generic_property_type", id_generic_property_type)));
   }
@@ -35,6 +38,7 @@ public class ContextPropertyTypeRepository extends ParetoNativeRepository<Contex
   public ApiResponse save(ContextPropertyTypePutApiRequest request) throws Exception {
     return put(toParams(request));
   } 
+
   public ApiResponse delete(ContextPropertyTypeDeleteApiRequest request) throws Exception {
     return delete(toParams(request));
   }
