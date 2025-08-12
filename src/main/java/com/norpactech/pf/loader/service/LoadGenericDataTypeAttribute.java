@@ -55,7 +55,7 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
         
         var genericDataType = genericDataTypeRepository.findOne(tenant.getId(), genericDataTypeName);
         if (genericDataType == null) {
-          logger.error("Generic Data Type {} not found. Ignoring GenericDataTypeAttribute {}.", schemaName, name);
+          logger.error("Generic Data Type {} not found. Ignoring GenericDataTypeAttribute {}.", genericDataTypeName, name);
           continue;
         }        
 
@@ -67,11 +67,13 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
         
         RefTableType refTableType = refTableTypeRepository.findOne (systemTenant.getId(), EnumRefTableType.ATTR_DATA_TYPE.name());
         if (refTableType == null) {
+          logger.error("Reference Table Type {} not found. Ignoring Generic Data Type Attribute {}.", EnumRefTableType.ATTR_DATA_TYPE.name(), name);
           continue;
         }        
         
         RefTables refTables = refTablesRepository.findOne(refTableType.getId(), attributeDataType);
         if (refTables == null) {
+          logger.error("Reference Table {} not found. Ignoring Generic Data Type Attribute {}.", attributeDataType, name);
           continue;
         }  
         
