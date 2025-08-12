@@ -11,7 +11,21 @@ public class LoadAll {
     logger.info("Beginning Load All");
     new LoadTenant(filePath, "Tenant.csv").load(filePath);
     new LoadSchema(filePath, "Schema.csv").load(filePath);
-    new LoadUser(filePath, "User.csv").load(filePath);
+    new LoadUser(filePath, "User.csv").load(filePath); // with TenantUser
+    new LoadValidation(filePath, "Validation.csv").load(filePath);
+    
+    /*
+      ContextDataTypeETL contextDataTypeETL;
+      ContextPropertyTypeETL contextPropertyTypeETL;
+      GenericDataTypeETL genericDataTypeETL;
+      GenericDataTypeAttributeETL genericDataTypeAttributeETL;
+      GenericPropertyTypeETL genericPropertyTypeETL;
+      ProjectETL projectETL;
+      ProjectComponentETL projectComponentETL;
+      ProjectComponentPropertyETL projectComponentPropertyETL;
+    */
+
+    
     
     logger.info("Completed Load All");
   }

@@ -18,6 +18,8 @@ import com.norpactech.pf.loader.repository.GenericPropertyTypeRepository;
 import com.norpactech.pf.loader.repository.ProjectComponentPropertyRepository;
 import com.norpactech.pf.loader.repository.ProjectComponentRepository;
 import com.norpactech.pf.loader.repository.ProjectRepository;
+import com.norpactech.pf.loader.repository.RefTableTypeRepository;
+import com.norpactech.pf.loader.repository.RefTablesRepository;
 import com.norpactech.pf.loader.repository.SchemaRepository;
 import com.norpactech.pf.loader.repository.TenantRepository;
 import com.norpactech.pf.loader.repository.TenantUserRepository;
@@ -34,6 +36,8 @@ public abstract class BaseLoader {
   protected static final ProjectComponentPropertyRepository projectComponentPropertyRepository = new ProjectComponentPropertyRepository();
   protected static final ProjectComponentRepository projectComponentRepository = new ProjectComponentRepository();
   protected static final ProjectRepository projectRepository = new ProjectRepository();
+  protected static final RefTablesRepository refTablesRepository = new RefTablesRepository();
+  protected static final RefTableTypeRepository refTableTypeRepository = new RefTableTypeRepository();
   protected static final SchemaRepository schemaRepository = new SchemaRepository();
   protected static final TenantRepository tenantRepository = new TenantRepository();
   protected static final TenantUserRepository tenantUserRepository = new TenantUserRepository();
