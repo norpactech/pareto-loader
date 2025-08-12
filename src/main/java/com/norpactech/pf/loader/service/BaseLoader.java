@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.norpactech.pf.loader.repository.ContextDataTypeRepository;
 import com.norpactech.pf.loader.repository.ContextPropertyTypeRepository;
+import com.norpactech.pf.loader.repository.ContextRepository;
 import com.norpactech.pf.loader.repository.GenericDataTypeAttributeRepository;
 import com.norpactech.pf.loader.repository.GenericDataTypeRepository;
 import com.norpactech.pf.loader.repository.GenericPropertyTypeRepository;
@@ -28,6 +29,7 @@ import com.norpactech.pf.loader.repository.ValidationRepository;
 
 public abstract class BaseLoader {
 
+  protected static final ContextRepository contextRepository = new ContextRepository();
   protected static final ContextDataTypeRepository contextDataTypeRepository = new ContextDataTypeRepository();
   protected static final ContextPropertyTypeRepository contextPropertyTypeRepository = new ContextPropertyTypeRepository();
   protected static final GenericDataTypeAttributeRepository genericDataTypeAttributeRepository = new GenericDataTypeAttributeRepository();
