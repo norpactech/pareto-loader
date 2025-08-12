@@ -3,24 +3,24 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.norpactech.pf.loader.dto.ProjectComponentPostApiRequest;
+import com.norpactech.pf.loader.dto.ProjectComponentPutApiRequest;
 import com.norpactech.pf.loader.dto.ProjectDeleteApiRequest;
-import com.norpactech.pf.loader.dto.ProjectPostApiRequest;
-import com.norpactech.pf.loader.dto.ProjectPutApiRequest;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.utils.Constant;
 import com.norpactech.pf.utils.TextUtils;
 
-public class LoadProject extends BaseLoader {
+public class LoadProjectComponent extends BaseLoader {
 
-  private static final Logger logger = LoggerFactory.getLogger(LoadProject.class);
+  private static final Logger logger = LoggerFactory.getLogger(LoadProjectComponent.class);
 
-  public LoadProject(String filePath, String fileName) throws Exception {
+  public LoadProjectComponent(String filePath, String fileName) throws Exception {
     super(filePath, fileName);
   }
   
   public void load() throws Exception {
     
-    logger.info("Beginning Project Load from: " + getFullPath());
+    logger.info("Beginning Schema Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;
     int errors = 0;
@@ -33,46 +33,70 @@ public class LoadProject extends BaseLoader {
         var action = TextUtils.toString(csvRecord.get("action")).toLowerCase();
         var tenantName = TextUtils.toString(csvRecord.get("tenant"));
         var schemaName = TextUtils.toString(csvRecord.get("schema"));
+        var projectName = TextUtils.toString(csvRecord.get("project"));
+        var contextName = TextUtils.toString(csvRecord.get("context"));
+        var pluginName = TextUtils.toString(csvRecord.get("plugin"));
         var name = TextUtils.toString(csvRecord.get("name"));
         var description = TextUtils.toString(csvRecord.get("description"));
-        var domain = TextUtils.toString(csvRecord.get("domain"));
-        var artifact = TextUtils.toString(csvRecord.get("artifact"));
+        var subPackage = TextUtils.toString(csvRecord.get("sub_package"));
         
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
-          logger.error("Tenant {} not found. Ignoring Project {}.", tenantName, name);
+          logger.error("Tenant {} not found. Ignoring Project Component {}.", tenantName, name);
           continue;
         }
         
         var schema = schemaRepository.findOne(tenant.getId(), schemaName);
         if (schema == null) {
-          logger.error("Schema {} not found. Ignoring Project {}.", schemaName, name);
+          logger.error("Schema {} not found. Ignoring Project Component {}.", schemaName, name);
           continue;
         }
-        var project = projectRepository.findOne(schema.getId(), name);
+
+        var project = projectRepository.findOne(schema.getId(), projectName);
+        if (project == null) {
+          logger.error("Project {} not found. Ignoring Project Component {}.", projectName, name);
+          continue;
+        }
+
+        var context = contextRepository.findOne(contextName);
+        if (context == null) {
+          logger.error("Context {} not found. Ignoring Project Component {}.", contextName, name);
+          continue;
+        }
+        
+        var plugin = pluginRepository.findOne(context.getId(), pluginName);
+        if (plugin == null) {
+          logger.error("Plugin {} not found. Ignoring Project Component {}.", pluginName, name);
+          continue;
+        }
+        var projectComponent = projectComponentRepository.findOne(project.getId(), name);        
         ApiResponse response = null; 
-            
+
         if (action.startsWith("p")) {
-          if (project == null) {
-            var request = new ProjectPostApiRequest();
-            request.setIdSchema(schema.getId());
+          if (projectComponent == null) {
+            var request = new ProjectComponentPostApiRequest();
+            request.setIdProject(project.getId());
+            request.setIdContext(context.getId());
+            request.setIdPlugin(plugin.getId());
             request.setName(name);
             request.setDescription(description);
-            request.setDomain(domain);
-            request.setArtifact(artifact);
+            request.setSubPackage(subPackage);
             request.setCreatedBy(Constant.THIS_PROCESS_CREATED);
-            response = projectRepository.save(request);
+            response = projectComponentRepository.save(request);
           }
           else {
-            var request = new ProjectPutApiRequest();
-            request.setId(project.getId());
+            var request = new ProjectComponentPutApiRequest();
+            request.setId(projectComponent.getId());
+            request.setIdContext(context.getId());
+            request.setIdPlugin(plugin.getId());
             request.setName(name);
             request.setDescription(description);
-            request.setDomain(domain);
-            request.setArtifact(artifact);
-            request.setUpdatedAt(project.getUpdatedAt());
+            request.setSubPackage(subPackage);
+            request.setDescription(description);
+            request.setSubPackage(subPackage);
+            request.setUpdatedAt(projectComponent.getUpdatedAt());
             request.setUpdatedBy(Constant.THIS_PROCESS_UPDATED);
-            response = projectRepository.save(request);
+            response = projectComponentRepository.save(request);
           }
           if (response.getData() == null) {
             logger.error(this.getClass().getName() + " failed for: " + tenantName + " " + response.getMeta().getDetail());
