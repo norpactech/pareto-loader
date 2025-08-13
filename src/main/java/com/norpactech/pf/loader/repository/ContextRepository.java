@@ -6,6 +6,7 @@ package com.norpactech.pf.loader.repository;
  */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.ContextDeleteApiRequest;
@@ -24,22 +25,26 @@ public class ContextRepository extends ParetoNativeRepository<Context> {
   }
 
   public Context get(UUID id) throws Exception {
-    return findOne(Context.class, new HashMap<>(Map.of("id", id)));
+    return super.findOne(Context.class, new HashMap<>(Map.of("id", id)));
   }
 
   public Context findOne(String name) throws Exception {
-    return findOne(Context.class, new HashMap<>(Map.of("name", name)));
+    return super.findOne(Context.class, new HashMap<>(Map.of("name", name)));
   }
   
+  public List<Context> find(Map<String, Object> params) throws Exception {
+    return super.find(Context.class, params);
+  }
+    
   public ApiResponse save(ContextPostApiRequest request) throws Exception {
-    return post(toParams(request));
+    return super.post(toParams(request));
   }  
   
   public ApiResponse save(ContextPutApiRequest request) throws Exception {
-    return put(toParams(request));
+    return super.put(toParams(request));
   } 
 
   public ApiResponse delete(ContextDeleteApiRequest request) throws Exception {
-    return delete(toParams(request));
+    return super.delete(toParams(request));
   }
 }

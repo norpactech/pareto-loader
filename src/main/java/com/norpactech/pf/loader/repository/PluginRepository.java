@@ -6,6 +6,7 @@ package com.norpactech.pf.loader.repository;
  */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.PluginPostApiRequest;
@@ -24,22 +25,26 @@ public class PluginRepository extends ParetoNativeRepository<Plugin> {
   }
 
   public Plugin get(UUID id) throws Exception {
-    return findOne(Plugin.class, new HashMap<>(Map.of("id", id)));
+    return super.findOne(Plugin.class, new HashMap<>(Map.of("id", id)));
   }
 
   public Plugin findOne(UUID idContext, String name) throws Exception {
-    return findOne(Plugin.class, new HashMap<>(Map.of("idContext", idContext, "name", name)));
+    return super.findOne(Plugin.class, new HashMap<>(Map.of("idContext", idContext, "name", name)));
   }
   
+  public List<Plugin> find(Map<String, Object> params) throws Exception {
+    return super.find(Plugin.class, params);
+  }
+    
   public ApiResponse save(PluginPostApiRequest request) throws Exception {
-    return post(toParams(request));
+    return super.post(toParams(request));
   }  
   
   public ApiResponse save(PluginPutApiRequest request) throws Exception {
-    return put(toParams(request));
+    return super.put(toParams(request));
   } 
 
   public ApiResponse delete(PluginDeleteApiRequest request) throws Exception {
-    return delete(toParams(request));
+    return super.delete(toParams(request));
   }
 }

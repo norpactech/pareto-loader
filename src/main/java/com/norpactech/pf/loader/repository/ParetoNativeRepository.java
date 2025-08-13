@@ -44,8 +44,16 @@ public abstract class ParetoNativeRepository<T> {
     return response.readObject(entityType);
   }
   
-  public List<T> find(Class<T> entityType, Map<String, String> queryParams) throws Exception {
-    ApiGetRequest request = new ApiGetRequest(entityType, getRelativeURL(), queryParams);
+  public List<T> find(Class<T> entityType, Map<String, Object> queryParams) throws Exception {
+
+    var toStringMap = new HashMap<String, String>();
+    for (String key : queryParams.keySet()) {
+      Object val = queryParams.get(key);
+      if (val != null) {
+        toStringMap.put(key, val.toString());
+      }
+    }
+    ApiGetRequest request = new ApiGetRequest(entityType, getRelativeURL(), toStringMap);
     request.setUri(getRelativeURL() + "/find");
     
     ApiResponse response = get(request);

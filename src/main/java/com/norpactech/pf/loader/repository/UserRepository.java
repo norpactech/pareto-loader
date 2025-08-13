@@ -6,6 +6,7 @@ package com.norpactech.pf.loader.repository;
  */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.UserDeleteApiRequest;
@@ -24,22 +25,26 @@ public class UserRepository extends ParetoNativeRepository<User> {
   }
 
   public User get(UUID id) throws Exception {
-    return findOne(User.class, new HashMap<>(Map.of("id", id)));
+    return super.findOne(User.class, new HashMap<>(Map.of("id", id)));
   }
 
   public User findOne(String email) throws Exception {
-    return findOne(User.class, new HashMap<>(Map.of("email", email)));
+    return super.findOne(User.class, new HashMap<>(Map.of("email", email)));
   }
   
+  public List<User> find(Map<String, Object> params) throws Exception {
+    return super.find(User.class, params);
+  }
+    
   public ApiResponse save(UserPostApiRequest request) throws Exception {
-    return post(toParams(request));
+    return super.post(toParams(request));
   }  
   
   public ApiResponse save(UserPutApiRequest request) throws Exception {
-    return put(toParams(request));
+    return super.put(toParams(request));
   } 
 
   public ApiResponse delete(UserDeleteApiRequest request) throws Exception {
-    return delete(toParams(request));
+    return super.delete(toParams(request));
   }
 }

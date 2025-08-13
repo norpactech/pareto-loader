@@ -6,6 +6,7 @@ package com.norpactech.pf.loader.repository;
  */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.ProjectComponentPropertyPostApiRequest;
@@ -24,22 +25,26 @@ public class ProjectComponentPropertyRepository extends ParetoNativeRepository<P
   }
 
   public ProjectComponentProperty get(UUID id) throws Exception {
-    return findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("id", id)));
+    return super.findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("id", id)));
   }
 
   public ProjectComponentProperty findOne(UUID idProjectComponent, String dataObjectFilter, String propertyFilter) throws Exception {
-    return findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("idProjectComponent", idProjectComponent, "dataObjectFilter", dataObjectFilter, "propertyFilter", propertyFilter)));
+    return super.findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("idProjectComponent", idProjectComponent, "dataObjectFilter", dataObjectFilter, "propertyFilter", propertyFilter)));
   }
   
+  public List<ProjectComponentProperty> find(Map<String, Object> params) throws Exception {
+    return super.find(ProjectComponentProperty.class, params);
+  }
+    
   public ApiResponse save(ProjectComponentPropertyPostApiRequest request) throws Exception {
-    return post(toParams(request));
+    return super.post(toParams(request));
   }  
   
   public ApiResponse save(ProjectComponentPropertyPutApiRequest request) throws Exception {
-    return put(toParams(request));
+    return super.put(toParams(request));
   } 
 
   public ApiResponse delete(ProjectComponentPropertyDeleteApiRequest request) throws Exception {
-    return delete(toParams(request));
+    return super.delete(toParams(request));
   }
 }

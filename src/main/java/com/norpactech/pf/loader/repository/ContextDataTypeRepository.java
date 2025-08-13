@@ -6,6 +6,7 @@ package com.norpactech.pf.loader.repository;
  */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.ContextDataTypePostApiRequest;
@@ -24,22 +25,26 @@ public class ContextDataTypeRepository extends ParetoNativeRepository<ContextDat
   }
 
   public ContextDataType get(UUID id) throws Exception {
-    return findOne(ContextDataType.class, new HashMap<>(Map.of("id", id)));
+    return super.findOne(ContextDataType.class, new HashMap<>(Map.of("id", id)));
   }
 
   public ContextDataType findOne(UUID idContext, UUID idGenericDataType) throws Exception {
-    return findOne(ContextDataType.class, new HashMap<>(Map.of("idContext", idContext, "idGenericDataType", idGenericDataType)));
+    return super.findOne(ContextDataType.class, new HashMap<>(Map.of("idContext", idContext, "idGenericDataType", idGenericDataType)));
   }
   
+  public List<ContextDataType> find(Map<String, Object> params) throws Exception {
+    return super.find(ContextDataType.class, params);
+  }
+    
   public ApiResponse save(ContextDataTypePostApiRequest request) throws Exception {
-    return post(toParams(request));
+    return super.post(toParams(request));
   }  
   
   public ApiResponse save(ContextDataTypePutApiRequest request) throws Exception {
-    return put(toParams(request));
+    return super.put(toParams(request));
   } 
 
   public ApiResponse delete(ContextDataTypeDeleteApiRequest request) throws Exception {
-    return delete(toParams(request));
+    return super.delete(toParams(request));
   }
 }

@@ -6,6 +6,7 @@ package com.norpactech.pf.loader.repository;
  */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.loader.dto.RefTableTypePutApiRequest;
@@ -24,22 +25,26 @@ public class RefTableTypeRepository extends ParetoNativeRepository<RefTableType>
   }
 
   public RefTableType get(UUID id) throws Exception {
-    return findOne(RefTableType.class, new HashMap<>(Map.of("id", id)));
+    return super.findOne(RefTableType.class, new HashMap<>(Map.of("id", id)));
   }
 
   public RefTableType findOne(UUID idTenant, String name) throws Exception {
-    return findOne(RefTableType.class, new HashMap<>(Map.of("idTenant", idTenant, "name", name)));
+    return super.findOne(RefTableType.class, new HashMap<>(Map.of("idTenant", idTenant, "name", name)));
   }
   
+  public List<RefTableType> find(Map<String, Object> params) throws Exception {
+    return super.find(RefTableType.class, params);
+  }
+    
   public ApiResponse save(RefTableTypePostApiRequest request) throws Exception {
-    return post(toParams(request));
+    return super.post(toParams(request));
   }  
   
   public ApiResponse save(RefTableTypePutApiRequest request) throws Exception {
-    return put(toParams(request));
+    return super.put(toParams(request));
   } 
 
   public ApiResponse delete(RefTableTypeDeleteApiRequest request) throws Exception {
-    return delete(toParams(request));
+    return super.delete(toParams(request));
   }
 }
