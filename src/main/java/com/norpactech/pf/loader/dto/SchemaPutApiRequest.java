@@ -20,8 +20,8 @@ public class SchemaPutApiRequest {
 
   private UUID id;
   private String name;
-  private String database;
   private String description;
+  private String database;
   private Timestamp updatedAt;
   private String updatedBy;
 
@@ -34,8 +34,8 @@ public class SchemaPutApiRequest {
     request.put("sql", "SELECT pareto.u_schema(?,?,?,?,?,?)");
     request.put("id", this.id);
     request.put("name", this.name);
-    request.put("database", this.database);
     request.put("description", this.description);
+    request.put("database", this.database);
     request.put("updatedAt", this.updatedAt);
     request.put("updatedBy", this.updatedBy);
     return request;
@@ -59,20 +59,20 @@ public class SchemaPutApiRequest {
     return this.name = name;
   }    
     
-  public String getDatabase() {
-    return this.database;
-  }
-    
-  public String setDatabase(String database) {
-    return this.database = database;
-  }    
-    
   public String getDescription() {
     return this.description;
   }
     
   public String setDescription(String description) {
     return this.description = description;
+  }    
+    
+  public String getDatabase() {
+    return this.database;
+  }
+    
+  public String setDatabase(String database) {
+    return this.database = database;
   }    
     
   public Timestamp getUpdatedAt() {

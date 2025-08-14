@@ -18,10 +18,10 @@ public class ProjectComponent extends BaseModel {
   private UUID id;
   private UUID idProject;
   private String projectName;
-  private UUID idContext;
-  private String contextName;
   private UUID idPlugin;
   private String pluginName;
+  private UUID idContext;
+  private String contextName;
   private String name;
   private String description;
   private String subPackage;
@@ -40,10 +40,10 @@ public class ProjectComponent extends BaseModel {
     UUID id,
     UUID idProject,
     String projectName,
-    UUID idContext,
-    String contextName,
     UUID idPlugin,
     String pluginName,
+    UUID idContext,
+    String contextName,
     String name,
     String description,
     String subPackage,
@@ -56,10 +56,10 @@ public class ProjectComponent extends BaseModel {
     this.id = id;
     this.idProject = idProject;
     this.projectName = projectName;
-    this.idContext = idContext;
-    this.contextName = contextName;
     this.idPlugin = idPlugin;
     this.pluginName = pluginName;
+    this.idContext = idContext;
+    this.contextName = contextName;
     this.name = name;
     this.description = description;
     this.subPackage = subPackage;
@@ -76,12 +76,12 @@ public class ProjectComponent extends BaseModel {
     matchedParams.put("sql", 
       "SELECT pareto.project_component.*, " + 
       "pareto.project.name as project_name, " + 
-      "pareto.context.name as context_name, " + 
-      "pareto.plugin.name as plugin_name " + 
+      "pareto.plugin.name as plugin_name, " + 
+      "pareto.context.name as context_name " + 
       "FROM pareto.project_component " + 
       "JOIN pareto.project on (pareto.project.id = pareto.project_component.id_project) " + 
-      "JOIN pareto.context on (pareto.context.id = pareto.project_component.id_context) " + 
-      "JOIN pareto.plugin on (pareto.plugin.id = pareto.project_component.id_plugin)");
+      "JOIN pareto.plugin on (pareto.plugin.id = pareto.project_component.id_plugin) " + 
+      "JOIN pareto.context on (pareto.context.id = pareto.project_component.id_context)");
     return matchedParams;
   }
 
@@ -111,22 +111,6 @@ public class ProjectComponent extends BaseModel {
     return this.projectName = projectName;
   }    
     
-  public UUID getIdContext() {
-    return this.idContext;
-  }
-    
-  public UUID setIdContext(UUID idContext) {
-    return this.idContext = idContext;
-  }    
-    
-  public String getContextName() {
-    return this.contextName;
-  }
-    
-  public String setContextName(String contextName) {
-    return this.contextName = contextName;
-  }    
-    
   public UUID getIdPlugin() {
     return this.idPlugin;
   }
@@ -141,6 +125,22 @@ public class ProjectComponent extends BaseModel {
     
   public String setPluginName(String pluginName) {
     return this.pluginName = pluginName;
+  }    
+    
+  public UUID getIdContext() {
+    return this.idContext;
+  }
+    
+  public UUID setIdContext(UUID idContext) {
+    return this.idContext = idContext;
+  }    
+    
+  public String getContextName() {
+    return this.contextName;
+  }
+    
+  public String setContextName(String contextName) {
+    return this.contextName = contextName;
   }    
     
   public String getName() {

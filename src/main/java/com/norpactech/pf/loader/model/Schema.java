@@ -19,8 +19,8 @@ public class Schema extends BaseModel {
   private UUID idTenant;
   private String tenantName;
   private String name;
-  private String database;
   private String description;
+  private String database;
   private Timestamp createdAt;
   private String createdBy;
   private Timestamp updatedAt;
@@ -37,8 +37,8 @@ public class Schema extends BaseModel {
     UUID idTenant,
     String tenantName,
     String name,
-    String database,
     String description,
+    String database,
     Timestamp createdAt,
     String createdBy,
     Timestamp updatedAt,
@@ -49,8 +49,8 @@ public class Schema extends BaseModel {
     this.idTenant = idTenant;
     this.tenantName = tenantName;
     this.name = name;
-    this.database = database;
     this.description = description;
+    this.database = database;
     this.createdAt = createdAt;
     this.createdBy = createdBy;
     this.updatedAt = updatedAt;
@@ -103,20 +103,20 @@ public class Schema extends BaseModel {
     return this.name = name;
   }    
     
-  public String getDatabase() {
-    return this.database;
-  }
-    
-  public String setDatabase(String database) {
-    return this.database = database;
-  }    
-    
   public String getDescription() {
     return this.description;
   }
     
   public String setDescription(String description) {
     return this.description = description;
+  }    
+    
+  public String getDatabase() {
+    return this.database;
+  }
+    
+  public String setDatabase(String database) {
+    return this.database = database;
   }    
     
   public Timestamp getCreatedAt() {

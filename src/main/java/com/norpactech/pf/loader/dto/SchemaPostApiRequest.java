@@ -19,8 +19,8 @@ import io.swagger.v3.oas.annotations.Hidden;
 
   private UUID idTenant;
   private String name;
-  private String database;
   private String description;
+  private String database;
   private String createdBy;
 
   public SchemaPostApiRequest () {}
@@ -32,8 +32,8 @@ import io.swagger.v3.oas.annotations.Hidden;
     request.put("sql", "SELECT pareto.i_schema(?,?,?,?,?)");
     request.put("idTenant", this.idTenant);
     request.put("name", this.name);
-    request.put("database", this.database);
     request.put("description", this.description);
+    request.put("database", this.database);
     request.put("createdBy", this.createdBy);
     return request;
   }
@@ -56,20 +56,20 @@ import io.swagger.v3.oas.annotations.Hidden;
     return this.name = name;
   }    
     
-  public String getDatabase() {
-    return this.database;
-  }
-    
-  public String setDatabase(String database) {
-    return this.database = database;
-  }    
-    
   public String getDescription() {
     return this.description;
   }
     
   public String setDescription(String description) {
     return this.description = description;
+  }    
+    
+  public String getDatabase() {
+    return this.database;
+  }
+    
+  public String setDatabase(String database) {
+    return this.database = database;
   }    
     
   public String getCreatedBy() {

@@ -19,8 +19,8 @@ import io.swagger.v3.oas.annotations.Hidden;
 public class ProjectComponentPutApiRequest {
 
   private UUID id;
-  private UUID idContext;
   private UUID idPlugin;
+  private UUID idContext;
   private String name;
   private String description;
   private String subPackage;
@@ -35,8 +35,8 @@ public class ProjectComponentPutApiRequest {
      var request = new LinkedHashMap<String, Object>();
     request.put("sql", "SELECT pareto.u_project_component(?,?,?,?,?,?,?,?)");
     request.put("id", this.id);
-    request.put("idContext", this.idContext);
     request.put("idPlugin", this.idPlugin);
+    request.put("idContext", this.idContext);
     request.put("name", this.name);
     request.put("description", this.description);
     request.put("subPackage", this.subPackage);
@@ -55,20 +55,20 @@ public class ProjectComponentPutApiRequest {
     return this.id = id;
   }    
     
-  public UUID getIdContext() {
-    return this.idContext;
-  }
-    
-  public UUID setIdContext(UUID idContext) {
-    return this.idContext = idContext;
-  }    
-    
   public UUID getIdPlugin() {
     return this.idPlugin;
   }
     
   public UUID setIdPlugin(UUID idPlugin) {
     return this.idPlugin = idPlugin;
+  }    
+    
+  public UUID getIdContext() {
+    return this.idContext;
+  }
+    
+  public UUID setIdContext(UUID idContext) {
+    return this.idContext = idContext;
   }    
     
   public String getName() {
