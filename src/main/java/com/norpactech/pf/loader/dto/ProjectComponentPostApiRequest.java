@@ -18,8 +18,8 @@ import io.swagger.v3.oas.annotations.Hidden;
  public class ProjectComponentPostApiRequest {
 
   private UUID idProject;
-  private UUID idPlugin;
   private UUID idContext;
+  private UUID idPlugin;
   private String name;
   private String description;
   private String subPackage;
@@ -33,8 +33,8 @@ import io.swagger.v3.oas.annotations.Hidden;
     var request = new LinkedHashMap<String, Object>();
     request.put("sql", "SELECT pareto.i_project_component(?,?,?,?,?,?,?)");
     request.put("idProject", this.idProject);
-    request.put("idPlugin", this.idPlugin);
     request.put("idContext", this.idContext);
+    request.put("idPlugin", this.idPlugin);
     request.put("name", this.name);
     request.put("description", this.description);
     request.put("subPackage", this.subPackage);
@@ -52,20 +52,20 @@ import io.swagger.v3.oas.annotations.Hidden;
     return this.idProject = idProject;
   }    
     
-  public UUID getIdPlugin() {
-    return this.idPlugin;
-  }
-    
-  public UUID setIdPlugin(UUID idPlugin) {
-    return this.idPlugin = idPlugin;
-  }    
-    
   public UUID getIdContext() {
     return this.idContext;
   }
     
   public UUID setIdContext(UUID idContext) {
     return this.idContext = idContext;
+  }    
+    
+  public UUID getIdPlugin() {
+    return this.idPlugin;
+  }
+    
+  public UUID setIdPlugin(UUID idPlugin) {
+    return this.idPlugin = idPlugin;
   }    
     
   public String getName() {
