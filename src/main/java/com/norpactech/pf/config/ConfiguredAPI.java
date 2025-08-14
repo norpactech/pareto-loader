@@ -15,9 +15,9 @@ import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.utils.AuthUtils;
 import com.norpactech.pf.utils.NetUtils;
 
-public class ParetoAPI {
+public class ConfiguredAPI {
 
-  private static final Logger logger = LoggerFactory.getLogger(ParetoAPI.class);
+  private static final Logger logger = LoggerFactory.getLogger(ConfiguredAPI.class);
 
   public static String host;
   public static String apiVersion;

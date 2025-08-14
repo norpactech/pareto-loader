@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.norpactech.pf.config.ParetoAPI;
+import com.norpactech.pf.config.ConfiguredAPI;
 import com.norpactech.pf.loader.service.LoadAll;
 
 public class Application {
@@ -51,7 +51,7 @@ public class Application {
     }    
 
     try {
-      ParetoAPI.configure(factoryURL, apiVersion, username, password);
+      ConfiguredAPI.configure(factoryURL, apiVersion, username, password);
       LoadAll.load(filePath);
       System.exit(0);
     }
