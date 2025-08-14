@@ -1,4 +1,5 @@
 !**/src/main/resources/docker/postgres_data
+dependency-reduced-pom.xml
 
 HELP.md
 target/

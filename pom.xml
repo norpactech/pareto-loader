@@ -93,7 +93,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.norpactech.pf.rdbms.Application</mainClass>
+              <mainClass>com.norpactech.pf.loader.Application</mainClass>
             </manifest>
           </archive>
         </configuration>
