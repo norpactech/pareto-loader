@@ -38,6 +38,9 @@ public abstract class ParetoNativeRepository<T> {
     var request = new ApiGetRequest(entityType, getRelativeURL(), toStringMap);
     var response = get(request);
 
+    if (response.getError() != null) {
+      throw new Exception(response.getError().toString());
+    }
     if (response.getData() == null) {
       return null;
     }
@@ -58,6 +61,9 @@ public abstract class ParetoNativeRepository<T> {
     
     ApiResponse response = get(request);
 
+    if (response.getError() != null) {
+      throw new Exception(response.getError().toString());
+    }
     if (response.getData() == null) {
       return new ArrayList<>();
     }
