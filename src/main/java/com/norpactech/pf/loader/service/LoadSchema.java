@@ -20,6 +20,8 @@ public class LoadSchema extends BaseLoader {
   
   public void load() throws Exception {
     
+    if (!isFileAvailable()) return;
+
     logger.info("Beginning Schema Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;

@@ -20,6 +20,8 @@ public class LoadProjectComponent extends BaseLoader {
   
   public void load() throws Exception {
     
+    if (!isFileAvailable()) return;
+
     logger.info("Beginning Project Component Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;

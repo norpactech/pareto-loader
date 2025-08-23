@@ -25,6 +25,8 @@ public class LoadUser extends BaseLoader {
   
   public void load() throws Exception {
     
+    if (!isFileAvailable()) return;
+
     logger.info("Beginning User Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;

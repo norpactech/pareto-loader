@@ -23,6 +23,8 @@ public class LoadValidation extends BaseLoader {
   
   public void load() throws Exception {
     
+    if (!isFileAvailable()) return;
+
     logger.info("Beginning Validation Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;

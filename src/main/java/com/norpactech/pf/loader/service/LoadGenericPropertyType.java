@@ -22,6 +22,8 @@ public class LoadGenericPropertyType extends BaseLoader {
   
   public void load() throws Exception {
     
+    if (!isFileAvailable()) return;
+
     logger.info("Beginning Generic Property Type Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;

@@ -20,6 +20,8 @@ public class LoadGenericDataType extends BaseLoader {
   
   public void load() throws Exception {
     
+    if (!isFileAvailable()) return;
+
     logger.info("Beginning Generic Data Type Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;

@@ -21,6 +21,8 @@ public class LoadTenant extends BaseLoader {
   
   public void load() throws Exception {
     
+    if (!isFileAvailable()) return;
+    
     logger.info("Beginning Tenant Load from: " + getFullPath());
     int persisted = 0;
     int deleted = 0;

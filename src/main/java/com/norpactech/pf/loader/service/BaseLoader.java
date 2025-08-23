@@ -4,6 +4,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -30,6 +31,8 @@ import com.norpactech.pf.loader.repository.ValidationRepository;
 
 public abstract class BaseLoader {
 
+  private static final Logger logger = Logger.getLogger(BaseLoader.class.getName());
+
   protected static final ContextRepository contextRepository = new ContextRepository();
   protected static final ContextDataTypeRepository contextDataTypeRepository = new ContextDataTypeRepository();
   protected static final ContextPropertyTypeRepository contextPropertyTypeRepository = new ContextPropertyTypeRepository();
@@ -51,13 +54,28 @@ public abstract class BaseLoader {
   private String filePath;
   private String fileName;
   private CSVParser csvParser;
+  private boolean fileExists;
   
   public BaseLoader (String filePath, String fileName) throws Exception {
     this.filePath = filePath;
     this.fileName = fileName;
     
+    if (!Files.exists(getFullPath())) {
+      this.fileExists = false;
+      logger.info("File does not exist: " + getFullPath() + " - Skipping load");
+      return;
+    }
+    this.fileExists = true;
     Reader reader = Files.newBufferedReader(getFullPath());
     this.csvParser = new CSVParser(reader, CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build());
+  }
+  
+  /**
+   * Check if the file exists and is available for loading
+   * @return true if file exists and can be loaded, false otherwise
+   */
+  public boolean isFileAvailable() {
+    return fileExists;
   }
   
   public boolean isComment(CSVRecord csvRecord) throws Exception {
@@ -103,4 +121,4 @@ public abstract class BaseLoader {
   public void setCsvParser(CSVParser csvParser) {
     this.csvParser = csvParser;
   }
-}  
+}
