@@ -18,6 +18,7 @@ public class User extends BaseModel {
 
   private UUID id;
   private String email;
+  private String oauthIdUser;
   private String lastName;
   private String firstName;
   private String phone;
@@ -41,6 +42,7 @@ public class User extends BaseModel {
   public User (
     UUID id,
     String email,
+    String oauthIdUser,
     String lastName,
     String firstName,
     String phone,
@@ -58,6 +60,7 @@ public class User extends BaseModel {
  {
     this.id = id;
     this.email = email;
+    this.oauthIdUser = oauthIdUser;
     this.lastName = lastName;
     this.firstName = firstName;
     this.phone = phone;
@@ -99,6 +102,14 @@ public class User extends BaseModel {
     
   public String setEmail(String email) {
     return this.email = email;
+  }    
+    
+  public String getOauthIdUser() {
+    return this.oauthIdUser;
+  }
+    
+  public String setOauthIdUser(String oauthIdUser) {
+    return this.oauthIdUser = oauthIdUser;
   }    
     
   public String getLastName() {

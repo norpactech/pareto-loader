@@ -21,6 +21,7 @@ public class Schema extends BaseModel {
   private String name;
   private String description;
   private String database;
+  private String username;
   private Timestamp createdAt;
   private String createdBy;
   private Timestamp updatedAt;
@@ -39,6 +40,7 @@ public class Schema extends BaseModel {
     String name,
     String description,
     String database,
+    String username,
     Timestamp createdAt,
     String createdBy,
     Timestamp updatedAt,
@@ -51,6 +53,7 @@ public class Schema extends BaseModel {
     this.name = name;
     this.description = description;
     this.database = database;
+    this.username = username;
     this.createdAt = createdAt;
     this.createdBy = createdBy;
     this.updatedAt = updatedAt;
@@ -117,6 +120,14 @@ public class Schema extends BaseModel {
     
   public String setDatabase(String database) {
     return this.database = database;
+  }    
+    
+  public String getUsername() {
+    return this.username;
+  }
+    
+  public String setUsername(String username) {
+    return this.username = username;
   }    
     
   public Timestamp getCreatedAt() {

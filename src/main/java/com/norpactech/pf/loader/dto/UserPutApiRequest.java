@@ -21,6 +21,7 @@ public class UserPutApiRequest {
 
   private UUID id;
   private String email;
+  private String oauthIdUser;
   private String lastName;
   private String firstName;
   private String phone;
@@ -39,9 +40,10 @@ public class UserPutApiRequest {
   public Map<String, Object> getUpdateRequest() {
     
      var request = new LinkedHashMap<String, Object>();
-    request.put("sql", "SELECT pareto.u_user(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    request.put("sql", "SELECT pareto.u_user(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     request.put("id", this.id);
     request.put("email", this.email);
+    request.put("oauthIdUser", this.oauthIdUser);
     request.put("lastName", this.lastName);
     request.put("firstName", this.firstName);
     request.put("phone", this.phone);
@@ -72,6 +74,14 @@ public class UserPutApiRequest {
     
   public String setEmail(String email) {
     return this.email = email;
+  }    
+    
+  public String getOauthIdUser() {
+    return this.oauthIdUser;
+  }
+    
+  public String setOauthIdUser(String oauthIdUser) {
+    return this.oauthIdUser = oauthIdUser;
   }    
     
   public String getLastName() {

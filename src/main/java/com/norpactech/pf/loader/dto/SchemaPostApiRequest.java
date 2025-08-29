@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.Hidden;
   private String name;
   private String description;
   private String database;
+  private String username;
   private String createdBy;
 
   public SchemaPostApiRequest () {}
@@ -29,11 +30,12 @@ import io.swagger.v3.oas.annotations.Hidden;
   public Map<String, Object> getInsertRequest() {
     
     var request = new LinkedHashMap<String, Object>();
-    request.put("sql", "SELECT pareto.i_schema(?,?,?,?,?)");
+    request.put("sql", "SELECT pareto.i_schema(?,?,?,?,?,?)");
     request.put("idTenant", this.idTenant);
     request.put("name", this.name);
     request.put("description", this.description);
     request.put("database", this.database);
+    request.put("username", this.username);
     request.put("createdBy", this.createdBy);
     return request;
   }
@@ -70,6 +72,14 @@ import io.swagger.v3.oas.annotations.Hidden;
     
   public String setDatabase(String database) {
     return this.database = database;
+  }    
+    
+  public String getUsername() {
+    return this.username;
+  }
+    
+  public String setUsername(String username) {
+    return this.username = username;
   }    
     
   public String getCreatedBy() {

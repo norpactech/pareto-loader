@@ -22,6 +22,7 @@ public class SchemaPutApiRequest {
   private String name;
   private String description;
   private String database;
+  private String username;
   private Timestamp updatedAt;
   private String updatedBy;
 
@@ -31,11 +32,12 @@ public class SchemaPutApiRequest {
   public Map<String, Object> getUpdateRequest() {
     
      var request = new LinkedHashMap<String, Object>();
-    request.put("sql", "SELECT pareto.u_schema(?,?,?,?,?,?)");
+    request.put("sql", "SELECT pareto.u_schema(?,?,?,?,?,?,?)");
     request.put("id", this.id);
     request.put("name", this.name);
     request.put("description", this.description);
     request.put("database", this.database);
+    request.put("username", this.username);
     request.put("updatedAt", this.updatedAt);
     request.put("updatedBy", this.updatedBy);
     return request;
@@ -73,6 +75,14 @@ public class SchemaPutApiRequest {
     
   public String setDatabase(String database) {
     return this.database = database;
+  }    
+    
+  public String getUsername() {
+    return this.username;
+  }
+    
+  public String setUsername(String username) {
+    return this.username = username;
   }    
     
   public Timestamp getUpdatedAt() {
