@@ -1,25 +1,13 @@
 package com.norpactech.pf.loader.repository;
-/**
- * © 2025 Northern Pacific Technologies, LLC. All Rights Reserved. 
- *  
- * For license details, see the LICENSE file in this project root.
- */
-import java.lang.reflect.Field;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 import com.norpactech.pf.config.ConfiguredAPI;
+import com.norpactech.pf.loader.config.GsonConfig;
 import com.norpactech.pf.utils.ApiGetRequest;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.utils.TextUtils;
@@ -30,16 +18,7 @@ import okhttp3.RequestBody;
 
 public abstract class ParetoNativeRepository<T> {
 
-  // Configure Gson to use ISO 8601 format for all timestamps
-  private static final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(Timestamp.class, new JsonSerializer<Timestamp>() {
-        @Override
-        public JsonElement serialize(Timestamp src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-          return new JsonPrimitive(src.toInstant().toString());
-        }
-      })
-      .create();
-
+  private static final Gson gson = GsonConfig.getInstance();
   protected abstract String getRelativeURL();
 
   public T findOne(Class<T> entityType, Map<String, Object> queryParams) throws Exception {
@@ -202,13 +181,11 @@ public abstract class ParetoNativeRepository<T> {
   
   public Map<String, Object> toParams(Object request) throws IllegalAccessException {
     
-    Map<String, Object> map = new LinkedHashMap<>();
-    Class<?> clazz = request.getClass();
-
-    for (Field field : clazz.getDeclaredFields()) {
-      field.setAccessible(true);
-      map.put(field.getName(), field.get(request));
-    }
+    // Use Gson to serialize the object, then deserialize back to Map
+    // This ensures all custom serializers (like Timestamp -> ISO 8601) are applied
+    String json = gson.toJson(request);
+    @SuppressWarnings("unchecked")
+    Map<String, Object> map = gson.fromJson(json, Map.class);
     return map;
   }
 }
