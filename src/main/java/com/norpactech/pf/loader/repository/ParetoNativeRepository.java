@@ -1,4 +1,9 @@
 package com.norpactech.pf.loader.repository;
+/**
+ * © 2025 Northern Pacific Technologies, LLC. All Rights Reserved. 
+ *  
+ * For license details, see the LICENSE file in this project root.
+ */
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +12,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.norpactech.pf.config.ConfiguredAPI;
-import com.norpactech.pf.loader.config.GsonConfig;
+import com.norpactech.pf.config.GsonConfig;
 import com.norpactech.pf.utils.ApiGetRequest;
 import com.norpactech.pf.utils.ApiResponse;
 import com.norpactech.pf.utils.TextUtils;

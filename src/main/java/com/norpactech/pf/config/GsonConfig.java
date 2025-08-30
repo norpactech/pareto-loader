@@ -1,4 +1,4 @@
-package com.norpactech.pf.loader.config;
+package com.norpactech.pf.config;
 /**
  * © 2025 Northern Pacific Technologies, LLC. All Rights Reserved. 
  *  
