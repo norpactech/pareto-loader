@@ -17,6 +17,9 @@ public class Application {
   
   public static void main(String[] args) throws Exception {
 
+    java.util.Locale.setDefault(java.util.Locale.US);
+    java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("UTC"));
+
     String username   = System.getenv("PARETO_USERNAME");
     String password   = System.getenv("PARETO_PASSWORD");
     String factoryURL = System.getenv("PARETO_FACTORY_URL");

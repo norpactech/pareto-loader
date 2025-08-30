@@ -6,6 +6,7 @@ package com.norpactech.pf.loader.repository;
  */
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -13,6 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.norpactech.pf.config.ConfiguredAPI;
 import com.norpactech.pf.utils.ApiGetRequest;
 import com.norpactech.pf.utils.ApiResponse;
@@ -23,6 +29,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
 public abstract class ParetoNativeRepository<T> {
+
+  // Configure Gson to use ISO 8601 format for all timestamps
+  private static final Gson gson = new GsonBuilder()
+      .registerTypeAdapter(Timestamp.class, new JsonSerializer<Timestamp>() {
+        @Override
+        public JsonElement serialize(Timestamp src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+          return new JsonPrimitive(src.toInstant().toString());
+        }
+      })
+      .create();
 
   protected abstract String getRelativeURL();
 
@@ -100,7 +116,7 @@ public abstract class ParetoNativeRepository<T> {
     if (responseCode > 299) {
       throw new Exception("GET Request Failed: " + response.message());
     }
-    return new Gson().fromJson(response.body().string(), ApiResponse.class);
+    return gson.fromJson(response.body().string(), ApiResponse.class);
   } 
   
   public ApiResponse post(Map<String, Object> apiPostRequest) throws Exception {
@@ -109,7 +125,7 @@ public abstract class ParetoNativeRepository<T> {
     URL url = new URL(ConfiguredAPI.host + version + getRelativeURL());
 
     OkHttpClient client = new OkHttpClient().newBuilder().build();
-    String jsonBody = new Gson().toJson(apiPostRequest);
+    String jsonBody = gson.toJson(apiPostRequest);
     RequestBody requestBody = RequestBody.create(jsonBody, MediaType.get("application/json"));
 
     okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
@@ -127,7 +143,7 @@ public abstract class ParetoNativeRepository<T> {
     if (responseCode > 299) {
         throw new Exception("POST Request Failed: " + response.message());
     }
-    return new Gson().fromJson(response.body().string(), ApiResponse.class);
+    return gson.fromJson(response.body().string(), ApiResponse.class);
   }
   
   public ApiResponse put(Map<String, Object> apiPutRequest) throws Exception {
@@ -136,7 +152,7 @@ public abstract class ParetoNativeRepository<T> {
     URL url = new URL(ConfiguredAPI.host + version + getRelativeURL());
 
     OkHttpClient client = new OkHttpClient().newBuilder().build();
-    String jsonBody = new Gson().toJson(apiPutRequest);
+    String jsonBody = gson.toJson(apiPutRequest);
     RequestBody requestBody = RequestBody.create(jsonBody, MediaType.get("application/json"));
 
     okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
@@ -154,7 +170,7 @@ public abstract class ParetoNativeRepository<T> {
     if (responseCode > 299) {
         throw new Exception("POST Request Failed: " + response.message());
     }
-    return new Gson().fromJson(response.body().string(), ApiResponse.class);
+    return gson.fromJson(response.body().string(), ApiResponse.class);
   }
   
   public ApiResponse delete(Map<String, Object> apiDeleteRequest) throws Exception {
@@ -163,7 +179,7 @@ public abstract class ParetoNativeRepository<T> {
     URL url = new URL(ConfiguredAPI.host + version + getRelativeURL());
 
     OkHttpClient client = new OkHttpClient().newBuilder().build();
-    String jsonBody = new Gson().toJson(apiDeleteRequest);
+    String jsonBody = gson.toJson(apiDeleteRequest);
     RequestBody requestBody = RequestBody.create(jsonBody, MediaType.get("application/json"));
 
     okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
@@ -181,7 +197,7 @@ public abstract class ParetoNativeRepository<T> {
     if (responseCode > 299) {
         throw new Exception("POST Request Failed: " + response.message());
     }
-    return new Gson().fromJson(response.body().string(), ApiResponse.class);
+    return gson.fromJson(response.body().string(), ApiResponse.class);
   }
   
   public Map<String, Object> toParams(Object request) throws IllegalAccessException {
