@@ -37,6 +37,7 @@ public class LoadSchema extends BaseLoader {
         var name = TextUtils.toString(csvRecord.get("name"));
         var description = TextUtils.toString(csvRecord.get("description"));
         var database = TextUtils.toString(csvRecord.get("database"));
+        var username = TextUtils.toString(csvRecord.get("username"));
         
         var tenant = tenantRepository.findOne(tenantName);
         if (tenant == null) {
@@ -53,6 +54,7 @@ public class LoadSchema extends BaseLoader {
             request.setName(name);
             request.setDescription(description);
             request.setDatabase(database);
+            request.setUsername(username);
             request.setCreatedBy(Constant.THIS_PROCESS_CREATED);
             response = schemaRepository.save(request);
           }
@@ -62,6 +64,7 @@ public class LoadSchema extends BaseLoader {
             request.setName(name);
             request.setDescription(description);
             request.setDatabase(database);
+            request.setUsername(username);
             request.setUpdatedAt(schema.getUpdatedAt());
             request.setUpdatedBy(Constant.THIS_PROCESS_UPDATED);
             response = schemaRepository.save(request);

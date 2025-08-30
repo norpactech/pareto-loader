@@ -29,7 +29,8 @@ public class NetUtils {
         .url(url)
         .get()
         .addHeader("Accept", "application/json")
-        .addHeader("Content-Type", "application/json");
+        .addHeader("Content-Type", "application/json")
+        .addHeader("X-Tenant-ID", System.getenv("PARETO_TENANT_UUID"));
 
     okhttp3.Request request = requestBuilder.build();
     response = client.newCall(request).execute();       
@@ -56,8 +57,9 @@ public class NetUtils {
         .get()
         .addHeader("Accept", "application/json")
         .addHeader("Content-Type", "application/json")
-        .addHeader("Authorization", "Bearer " + ConfiguredAPI.jwt);
-    
+        .addHeader("Authorization", "Bearer " + ConfiguredAPI.jwt)
+        .addHeader("X-Tenant-ID", System.getenv("PARETO_TENANT_UUID"));
+
     okhttp3.Request request = requestBuilder.build();
     response = client.newCall(request).execute();       
 
@@ -82,8 +84,9 @@ public class NetUtils {
         .get()
         .addHeader("Accept", "application/json")
         .addHeader("Content-Type", "application/json")
-        .addHeader("Authorization", "Bearer " + ConfiguredAPI.jwt);
-    
+        .addHeader("Authorization", "Bearer " + ConfiguredAPI.jwt)
+        .addHeader("X-Tenant-ID", System.getenv("PARETO_TENANT_UUID"));
+
     okhttp3.Request request = requestBuilder.build();
     response = client.newCall(request).execute();       
 
