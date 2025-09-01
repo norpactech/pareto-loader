@@ -61,7 +61,7 @@ public class LoadValidation extends BaseLoader {
           continue;
         }        
         
-        RefTables refTables = refTablesRepository.findOne(refTableType.getId(), validationType);
+        RefTables refTables = refTablesRepository.findOne(tenant.getId(), refTableType.getId(), validationType);
         if (refTables == null) {
           logger.error("Reference Table Entry {} not found. Ignoring Validation {}.", validationType, name);
           continue;

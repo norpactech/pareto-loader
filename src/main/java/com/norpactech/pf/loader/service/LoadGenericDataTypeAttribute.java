@@ -73,18 +73,19 @@ public class LoadGenericDataTypeAttribute extends BaseLoader {
           continue;
         }        
         
-        RefTables refTables = refTablesRepository.findOne(refTableType.getId(), attributeDataType);
+        RefTables refTables = refTablesRepository.findOne(tenant.getId(), refTableType.getId(), attributeDataType);
         if (refTables == null) {
           logger.error("Reference Table Entry {} not found. Ignoring Generic Data Type Attribute {}.", attributeDataType, name);
           continue;
         }  
         
-        var genericDataTypeAttribute = genericDataTypeAttributeRepository.findOne(genericDataType.getId(), name);
+        var genericDataTypeAttribute = genericDataTypeAttributeRepository.findOne(tenant.getId(), genericDataType.getId(), name);
         ApiResponse response = null; 
         
         if (action.startsWith("p")) {
           if (genericDataTypeAttribute == null) {
             var request = new GenericDataTypeAttributePostApiRequest();
+            request.setIdTenant(tenant.getId());
             request.setIdGenericDataType(genericDataType.getId());
             request.setIdRtAttrDataType(refTables.getId());
             request.setName(name);

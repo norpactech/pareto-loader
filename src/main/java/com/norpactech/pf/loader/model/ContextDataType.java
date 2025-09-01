@@ -17,6 +17,8 @@ import java.util.UUID;
 public class ContextDataType extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idContext;
   private String contextName;
   private UUID idGenericDataType;
@@ -39,6 +41,8 @@ public class ContextDataType extends BaseModel {
 
   public ContextDataType (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idContext,
     String contextName,
     UUID idGenericDataType,
@@ -55,6 +59,8 @@ public class ContextDataType extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idContext = idContext;
     this.contextName = contextName;
     this.idGenericDataType = idGenericDataType;
@@ -76,9 +82,11 @@ public class ContextDataType extends BaseModel {
     var matchedParams = paramMatcher(queryParams, ContextDataType.class);
     matchedParams.put("sql", 
       "SELECT pareto.context_data_type.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.context.name as context_name, " + 
       "pareto.generic_data_type.name as generic_data_type_name " + 
       "FROM pareto.context_data_type " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.context_data_type.id_tenant) " + 
       "JOIN pareto.context on (pareto.context.id = pareto.context_data_type.id_context) " + 
       "JOIN pareto.generic_data_type on (pareto.generic_data_type.id = pareto.context_data_type.id_generic_data_type)");
     return matchedParams;
@@ -92,6 +100,22 @@ public class ContextDataType extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdContext() {

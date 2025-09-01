@@ -28,8 +28,8 @@ public class GenericDataTypeAttributeRepository extends ParetoNativeRepository<G
     return super.findOne(GenericDataTypeAttribute.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public GenericDataTypeAttribute findOne(UUID idGenericDataType, String name) throws Exception {
-    return super.findOne(GenericDataTypeAttribute.class, new HashMap<>(Map.of("idGenericDataType", idGenericDataType, "name", name)));
+  public GenericDataTypeAttribute findOne(UUID idTenant, UUID idGenericDataType, String name) throws Exception {
+    return super.findOne(GenericDataTypeAttribute.class, new HashMap<>(Map.of("idTenant", idTenant, "idGenericDataType", idGenericDataType, "name", name)));
   }
   
   public List<GenericDataTypeAttribute> find(Map<String, Object> params) throws Exception {

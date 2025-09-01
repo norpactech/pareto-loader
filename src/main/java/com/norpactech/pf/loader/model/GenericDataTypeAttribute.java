@@ -16,6 +16,8 @@ import java.util.UUID;
 public class GenericDataTypeAttribute extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idGenericDataType;
   private String genericDataTypeName;
   private UUID idRtAttrDataType;
@@ -34,6 +36,8 @@ public class GenericDataTypeAttribute extends BaseModel {
 
   public GenericDataTypeAttribute (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idGenericDataType,
     String genericDataTypeName,
     UUID idRtAttrDataType,
@@ -46,6 +50,8 @@ public class GenericDataTypeAttribute extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idGenericDataType = idGenericDataType;
     this.genericDataTypeName = genericDataTypeName;
     this.idRtAttrDataType = idRtAttrDataType;
@@ -63,8 +69,10 @@ public class GenericDataTypeAttribute extends BaseModel {
     var matchedParams = paramMatcher(queryParams, GenericDataTypeAttribute.class);
     matchedParams.put("sql", 
       "SELECT pareto.generic_data_type_attribute.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.generic_data_type.name as generic_data_type_name " + 
       "FROM pareto.generic_data_type_attribute " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.generic_data_type_attribute.id_tenant) " + 
       "JOIN pareto.generic_data_type on (pareto.generic_data_type.id = pareto.generic_data_type_attribute.id_generic_data_type)");
     return matchedParams;
   }
@@ -77,6 +85,22 @@ public class GenericDataTypeAttribute extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdGenericDataType() {

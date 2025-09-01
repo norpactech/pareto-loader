@@ -51,12 +51,13 @@ public class LoadProject extends BaseLoader {
           logger.error("Schema {} not found. Ignoring Project {}.", schemaName, name);
           continue;
         }
-        var project = projectRepository.findOne(schema.getId(), name);
+        var project = projectRepository.findOne(tenant.getId(), schema.getId(), name);
         ApiResponse response = null; 
             
         if (action.startsWith("p")) {
           if (project == null) {
             var request = new ProjectPostApiRequest();
+            request.setIdTenant(tenant.getId());
             request.setIdSchema(schema.getId());
             request.setName(name);
             request.setDescription(description);

@@ -28,8 +28,8 @@ public class GenericPropertyTypeRepository extends ParetoNativeRepository<Generi
     return super.findOne(GenericPropertyType.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public GenericPropertyType findOne(UUID idGenericDataType, String name) throws Exception {
-    return super.findOne(GenericPropertyType.class, new HashMap<>(Map.of("idGenericDataType", idGenericDataType, "name", name)));
+  public GenericPropertyType findOne(UUID idTenant, UUID idGenericDataType, String name) throws Exception {
+    return super.findOne(GenericPropertyType.class, new HashMap<>(Map.of("idTenant", idTenant, "idGenericDataType", idGenericDataType, "name", name)));
   }
   
   public List<GenericPropertyType> find(Map<String, Object> params) throws Exception {

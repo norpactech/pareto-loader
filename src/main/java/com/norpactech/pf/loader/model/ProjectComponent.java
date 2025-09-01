@@ -16,6 +16,8 @@ import java.util.UUID;
 public class ProjectComponent extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idProject;
   private String projectName;
   private UUID idContext;
@@ -38,6 +40,8 @@ public class ProjectComponent extends BaseModel {
 
   public ProjectComponent (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idProject,
     String projectName,
     UUID idContext,
@@ -54,6 +58,8 @@ public class ProjectComponent extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idProject = idProject;
     this.projectName = projectName;
     this.idContext = idContext;
@@ -75,10 +81,12 @@ public class ProjectComponent extends BaseModel {
     var matchedParams = paramMatcher(queryParams, ProjectComponent.class);
     matchedParams.put("sql", 
       "SELECT pareto.project_component.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.project.name as project_name, " + 
       "pareto.context.name as context_name, " + 
       "pareto.plugin.name as plugin_name " + 
       "FROM pareto.project_component " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.project_component.id_tenant) " + 
       "JOIN pareto.project on (pareto.project.id = pareto.project_component.id_project) " + 
       "JOIN pareto.context on (pareto.context.id = pareto.project_component.id_context) " + 
       "JOIN pareto.plugin on (pareto.plugin.id = pareto.project_component.id_plugin)");
@@ -93,6 +101,22 @@ public class ProjectComponent extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdProject() {

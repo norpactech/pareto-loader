@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.Hidden;
  */
  public class ContextDataTypePostApiRequest {
 
+  private UUID idTenant;
   private UUID idContext;
   private UUID idGenericDataType;
   private Integer sequence;
@@ -33,7 +34,8 @@ import io.swagger.v3.oas.annotations.Hidden;
   public Map<String, Object> getInsertRequest() {
     
     var request = new LinkedHashMap<String, Object>();
-    request.put("sql", "SELECT pareto.i_context_data_type(?,?,?,?,?,?,?,?)");
+    request.put("sql", "SELECT pareto.i_context_data_type(?,?,?,?,?,?,?,?,?)");
+    request.put("idTenant", this.idTenant);
     request.put("idContext", this.idContext);
     request.put("idGenericDataType", this.idGenericDataType);
     request.put("sequence", this.sequence);
@@ -46,6 +48,14 @@ import io.swagger.v3.oas.annotations.Hidden;
   }
   
   // Getters and Setters...
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
     
   public UUID getIdContext() {
     return this.idContext;

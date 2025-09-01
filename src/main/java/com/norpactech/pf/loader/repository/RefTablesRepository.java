@@ -28,8 +28,8 @@ public class RefTablesRepository extends ParetoNativeRepository<RefTables> {
     return super.findOne(RefTables.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public RefTables findOne(UUID idRefTableType, String name) throws Exception {
-    return super.findOne(RefTables.class, new HashMap<>(Map.of("idRefTableType", idRefTableType, "name", name)));
+  public RefTables findOne(UUID idTenant, UUID idRefTableType, String name) throws Exception {
+    return super.findOne(RefTables.class, new HashMap<>(Map.of("idTenant", idTenant, "idRefTableType", idRefTableType, "name", name)));
   }
   
   public List<RefTables> find(Map<String, Object> params) throws Exception {

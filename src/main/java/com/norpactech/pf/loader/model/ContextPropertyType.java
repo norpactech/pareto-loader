@@ -17,6 +17,8 @@ import java.util.UUID;
 public class ContextPropertyType extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idContext;
   private String contextName;
   private UUID idGenericPropertyType;
@@ -38,6 +40,8 @@ public class ContextPropertyType extends BaseModel {
 
   public ContextPropertyType (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idContext,
     String contextName,
     UUID idGenericPropertyType,
@@ -53,6 +57,8 @@ public class ContextPropertyType extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idContext = idContext;
     this.contextName = contextName;
     this.idGenericPropertyType = idGenericPropertyType;
@@ -73,9 +79,11 @@ public class ContextPropertyType extends BaseModel {
     var matchedParams = paramMatcher(queryParams, ContextPropertyType.class);
     matchedParams.put("sql", 
       "SELECT pareto.context_property_type.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.context.name as context_name, " + 
       "pareto.generic_property_type.name as generic_property_type_name " + 
       "FROM pareto.context_property_type " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.context_property_type.id_tenant) " + 
       "JOIN pareto.context on (pareto.context.id = pareto.context_property_type.id_context) " + 
       "JOIN pareto.generic_property_type on (pareto.generic_property_type.id = pareto.context_property_type.id_generic_property_type)");
     return matchedParams;
@@ -89,6 +97,22 @@ public class ContextPropertyType extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdContext() {

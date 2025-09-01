@@ -28,8 +28,8 @@ public class ContextPropertyTypeRepository extends ParetoNativeRepository<Contex
     return super.findOne(ContextPropertyType.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public ContextPropertyType findOne(UUID idContext, UUID idGenericPropertyType) throws Exception {
-    return super.findOne(ContextPropertyType.class, new HashMap<>(Map.of("idContext", idContext, "idGenericPropertyType", idGenericPropertyType)));
+  public ContextPropertyType findOne(UUID idTenant, UUID idContext, UUID idGenericPropertyType) throws Exception {
+    return super.findOne(ContextPropertyType.class, new HashMap<>(Map.of("idTenant", idTenant, "idContext", idContext, "idGenericPropertyType", idGenericPropertyType)));
   }
   
   public List<ContextPropertyType> find(Map<String, Object> params) throws Exception {

@@ -17,6 +17,8 @@ import java.util.UUID;
 public class GenericPropertyType extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idGenericDataType;
   private String genericDataTypeName;
   private UUID idValidation;
@@ -40,6 +42,8 @@ public class GenericPropertyType extends BaseModel {
 
   public GenericPropertyType (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idGenericDataType,
     String genericDataTypeName,
     UUID idValidation,
@@ -57,6 +61,8 @@ public class GenericPropertyType extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idGenericDataType = idGenericDataType;
     this.genericDataTypeName = genericDataTypeName;
     this.idValidation = idValidation;
@@ -79,9 +85,11 @@ public class GenericPropertyType extends BaseModel {
     var matchedParams = paramMatcher(queryParams, GenericPropertyType.class);
     matchedParams.put("sql", 
       "SELECT pareto.generic_property_type.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.generic_data_type.name as generic_data_type_name, " + 
       "pareto.validation.name as validation_name " + 
       "FROM pareto.generic_property_type " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.generic_property_type.id_tenant) " + 
       "JOIN pareto.generic_data_type on (pareto.generic_data_type.id = pareto.generic_property_type.id_generic_data_type) " + 
       "LEFT JOIN pareto.validation on (pareto.validation.id = pareto.generic_property_type.id_validation)");
     return matchedParams;
@@ -95,6 +103,22 @@ public class GenericPropertyType extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdGenericDataType() {

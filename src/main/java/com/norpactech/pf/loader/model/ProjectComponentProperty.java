@@ -17,6 +17,8 @@ import java.util.UUID;
 public class ProjectComponentProperty extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idProjectComponent;
   private String projectComponentName;
   private Integer sequence;
@@ -35,6 +37,8 @@ public class ProjectComponentProperty extends BaseModel {
 
   public ProjectComponentProperty (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idProjectComponent,
     String projectComponentName,
     Integer sequence,
@@ -47,6 +51,8 @@ public class ProjectComponentProperty extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idProjectComponent = idProjectComponent;
     this.projectComponentName = projectComponentName;
     this.sequence = sequence;
@@ -64,8 +70,10 @@ public class ProjectComponentProperty extends BaseModel {
     var matchedParams = paramMatcher(queryParams, ProjectComponentProperty.class);
     matchedParams.put("sql", 
       "SELECT pareto.project_component_property.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.project_component.name as project_component_name " + 
       "FROM pareto.project_component_property " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.project_component_property.id_tenant) " + 
       "JOIN pareto.project_component on (pareto.project_component.id = pareto.project_component_property.id_project_component)");
     return matchedParams;
   }
@@ -78,6 +86,22 @@ public class ProjectComponentProperty extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdProjectComponent() {

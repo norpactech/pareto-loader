@@ -16,6 +16,8 @@ import java.util.UUID;
 public class Project extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idSchema;
   private String schemaName;
   private String name;
@@ -35,6 +37,8 @@ public class Project extends BaseModel {
 
   public Project (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idSchema,
     String schemaName,
     String name,
@@ -48,6 +52,8 @@ public class Project extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idSchema = idSchema;
     this.schemaName = schemaName;
     this.name = name;
@@ -66,8 +72,10 @@ public class Project extends BaseModel {
     var matchedParams = paramMatcher(queryParams, Project.class);
     matchedParams.put("sql", 
       "SELECT pareto.project.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.schema.name as schema_name " + 
       "FROM pareto.project " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.project.id_tenant) " + 
       "JOIN pareto.schema on (pareto.schema.id = pareto.project.id_schema)");
     return matchedParams;
   }
@@ -80,6 +88,22 @@ public class Project extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdSchema() {

@@ -26,6 +26,7 @@ public class Application {
     String apiVersion = System.getenv("PARETO_API_VERSION");
     String idTenant   = System.getenv("PARETO_TENANT_UUID");
     String filePath   = System.getenv("IMPORT_FILE_PATH");
+    String tenantUUID = System.getenv("PARETO_TENANT_UUID");
     
     logger.info("Beginning Pareto Loader");
 
@@ -49,7 +50,7 @@ public class Application {
       System.exit(1);
     }    
 
-    if (StringUtils.isEmpty(idTenant)) {
+    if (StringUtils.isEmpty(tenantUUID)) {
       logger.error("Null or empty Tenant ID. Set environment variable: PARETO_TENANT_UUID. Terminating...");
       System.exit(1);
     }    

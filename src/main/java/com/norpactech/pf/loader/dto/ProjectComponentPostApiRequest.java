@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
  */
  public class ProjectComponentPostApiRequest {
 
+  private UUID idTenant;
   private UUID idProject;
   private UUID idContext;
   private UUID idPlugin;
@@ -31,7 +32,8 @@ import io.swagger.v3.oas.annotations.Hidden;
   public Map<String, Object> getInsertRequest() {
     
     var request = new LinkedHashMap<String, Object>();
-    request.put("sql", "SELECT pareto.i_project_component(?,?,?,?,?,?,?)");
+    request.put("sql", "SELECT pareto.i_project_component(?,?,?,?,?,?,?,?)");
+    request.put("idTenant", this.idTenant);
     request.put("idProject", this.idProject);
     request.put("idContext", this.idContext);
     request.put("idPlugin", this.idPlugin);
@@ -43,6 +45,14 @@ import io.swagger.v3.oas.annotations.Hidden;
   }
   
   // Getters and Setters...
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
     
   public UUID getIdProject() {
     return this.idProject;

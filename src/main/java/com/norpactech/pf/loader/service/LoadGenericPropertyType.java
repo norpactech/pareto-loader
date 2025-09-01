@@ -65,12 +65,13 @@ public class LoadGenericPropertyType extends BaseLoader {
             continue;
           }        
         }        
-        var genericPropertyType = genericPropertyTypeRepository.findOne(genericDataType.getId(), name);
+        var genericPropertyType = genericPropertyTypeRepository.findOne(tenant.getId(), genericDataType.getId(), name);
         ApiResponse response = null; 
         
         if (action.startsWith("p")) {
           if (genericPropertyType == null) {
             var request = new GenericPropertyTypePostApiRequest();
+            request.setIdTenant(tenant.getId());
             request.setIdGenericDataType(genericDataType.getId());
             request.setName(name);
             request.setDescription(description);            

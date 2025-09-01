@@ -67,17 +67,18 @@ public class LoadContextPropertyType extends BaseLoader {
           continue;
         }
         
-        var genericPropertyType = genericPropertyTypeRepository.findOne(genericDataType.getId(), genericPropertyTypeName);
+        var genericPropertyType = genericPropertyTypeRepository.findOne(tenant.getId(), genericDataType.getId(), genericPropertyTypeName);
         if (genericPropertyType == null) {
           logger.error("Generic Property Type {} not found. Ignoring Context Property Type.", genericPropertyTypeName);
           continue;
         }
-        var contextPropertyType = contextPropertyTypeRepository.findOne(context.getId(), genericPropertyType.getId());
+        var contextPropertyType = contextPropertyTypeRepository.findOne(tenant.getId(), context.getId(), genericPropertyType.getId());
         ApiResponse response = null; 
         
         if (action.startsWith("p")) {
           if (contextPropertyType == null) {
             var request = new ContextPropertyTypePostApiRequest();
+            request.setIdTenant(tenant.getId());
             request.setIdContext(context.getId());
             request.setIdGenericPropertyType(genericPropertyType.getId());
             request.setLength(length);            

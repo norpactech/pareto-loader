@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
  */
  public class GenericDataTypeAttributePostApiRequest {
 
+  private UUID idTenant;
   private UUID idGenericDataType;
   private UUID idRtAttrDataType;
   private String name;
@@ -29,7 +30,8 @@ import io.swagger.v3.oas.annotations.Hidden;
   public Map<String, Object> getInsertRequest() {
     
     var request = new LinkedHashMap<String, Object>();
-    request.put("sql", "SELECT pareto.i_generic_data_type_attribute(?,?,?,?,?)");
+    request.put("sql", "SELECT pareto.i_generic_data_type_attribute(?,?,?,?,?,?)");
+    request.put("idTenant", this.idTenant);
     request.put("idGenericDataType", this.idGenericDataType);
     request.put("idRtAttrDataType", this.idRtAttrDataType);
     request.put("name", this.name);
@@ -39,6 +41,14 @@ import io.swagger.v3.oas.annotations.Hidden;
   }
   
   // Getters and Setters...
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
     
   public UUID getIdGenericDataType() {
     return this.idGenericDataType;

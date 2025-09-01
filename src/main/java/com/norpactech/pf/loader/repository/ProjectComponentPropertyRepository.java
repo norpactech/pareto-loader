@@ -28,8 +28,8 @@ public class ProjectComponentPropertyRepository extends ParetoNativeRepository<P
     return super.findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("id", id)));
   }
 
-  public ProjectComponentProperty findOne(UUID idProjectComponent, String dataObjectFilter, String propertyFilter) throws Exception {
-    return super.findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("idProjectComponent", idProjectComponent, "dataObjectFilter", dataObjectFilter, "propertyFilter", propertyFilter)));
+  public ProjectComponentProperty findOne(UUID idTenant, UUID idProjectComponent, String dataObjectFilter, String propertyFilter) throws Exception {
+    return super.findOne(ProjectComponentProperty.class, new HashMap<>(Map.of("idTenant", idTenant, "idProjectComponent", idProjectComponent, "dataObjectFilter", dataObjectFilter, "propertyFilter", propertyFilter)));
   }
   
   public List<ProjectComponentProperty> find(Map<String, Object> params) throws Exception {

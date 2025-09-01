@@ -53,23 +53,24 @@ public class LoadProjectComponentProperty extends BaseLoader {
           continue;
         }
 
-        var project = projectRepository.findOne(schema.getId(), projectName);
+        var project = projectRepository.findOne(tenant.getId(), schema.getId(), projectName);
         if (project == null) {
           logger.error("Project {} not found. Ignoring Project Component Property.", projectName);
           continue;
         }
 
-        var projectComponent = projectComponentRepository.findOne(project.getId(), projectComponentName);        
+        var projectComponent = projectComponentRepository.findOne(tenant.getId(), project.getId(), projectComponentName);        
         if (projectComponent == null) {
           logger.error("Project Component {} not found. Ignoring Project Component Property.", projectComponentName);
           continue;
         }        
-        var projectComponentProperty = projectComponentPropertyRepository.findOne(projectComponent.getId(), dataObjectFilter, propertyFilter);        
+        var projectComponentProperty = projectComponentPropertyRepository.findOne(tenant.getId(), projectComponent.getId(), dataObjectFilter, propertyFilter);        
         ApiResponse response = null; 
 
         if (action.startsWith("p")) {
           if (projectComponentProperty == null) {
             var request = new ProjectComponentPropertyPostApiRequest();
+            request.setIdTenant(tenant.getId());
             request.setIdProjectComponent(projectComponent.getId());
             request.setSequence(sequence);
             request.setDataObjectFilter(dataObjectFilter);

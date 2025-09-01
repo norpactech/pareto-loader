@@ -54,7 +54,7 @@ public class LoadProjectComponent extends BaseLoader {
           continue;
         }
 
-        var project = projectRepository.findOne(schema.getId(), projectName);
+        var project = projectRepository.findOne(tenant.getId(), schema.getId(), projectName);
         if (project == null) {
           logger.error("Project {} not found. Ignoring Project Component {}.", projectName, name);
           continue;
@@ -71,12 +71,13 @@ public class LoadProjectComponent extends BaseLoader {
           logger.error("Plugin {} not found. Ignoring Project Component {}.", pluginName, name);
           continue;
         }
-        var projectComponent = projectComponentRepository.findOne(project.getId(), name);        
+        var projectComponent = projectComponentRepository.findOne(tenant.getId(), project.getId(), name);        
         ApiResponse response = null; 
 
         if (action.startsWith("p")) {
           if (projectComponent == null) {
             var request = new ProjectComponentPostApiRequest();
+            request.setIdTenant(tenant.getId());
             request.setIdProject(project.getId());
             request.setIdContext(context.getId());
             request.setIdPlugin(plugin.getId());

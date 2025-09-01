@@ -17,6 +17,8 @@ import java.util.UUID;
 public class RefTables extends BaseModel {
 
   private UUID id;
+  private UUID idTenant;
+  private String tenantName;
   private UUID idRefTableType;
   private String refTableTypeName;
   private String name;
@@ -36,6 +38,8 @@ public class RefTables extends BaseModel {
 
   public RefTables (
     UUID id,
+    UUID idTenant,
+    String tenantName,
     UUID idRefTableType,
     String refTableTypeName,
     String name,
@@ -49,6 +53,8 @@ public class RefTables extends BaseModel {
     Boolean isActive)
  {
     this.id = id;
+    this.idTenant = idTenant;
+    this.tenantName = tenantName;
     this.idRefTableType = idRefTableType;
     this.refTableTypeName = refTableTypeName;
     this.name = name;
@@ -67,8 +73,10 @@ public class RefTables extends BaseModel {
     var matchedParams = paramMatcher(queryParams, RefTables.class);
     matchedParams.put("sql", 
       "SELECT pareto.ref_tables.*, " + 
+      "pareto.tenant.name as tenant_name, " + 
       "pareto.ref_table_type.name as ref_table_type_name " + 
       "FROM pareto.ref_tables " + 
+      "JOIN pareto.tenant on (pareto.tenant.id = pareto.ref_tables.id_tenant) " + 
       "JOIN pareto.ref_table_type on (pareto.ref_table_type.id = pareto.ref_tables.id_ref_table_type)");
     return matchedParams;
   }
@@ -81,6 +89,22 @@ public class RefTables extends BaseModel {
     
   public UUID setId(UUID id) {
     return this.id = id;
+  }    
+    
+  public UUID getIdTenant() {
+    return this.idTenant;
+  }
+    
+  public UUID setIdTenant(UUID idTenant) {
+    return this.idTenant = idTenant;
+  }    
+    
+  public String getTenantName() {
+    return this.tenantName;
+  }
+    
+  public String setTenantName(String tenantName) {
+    return this.tenantName = tenantName;
   }    
     
   public UUID getIdRefTableType() {
