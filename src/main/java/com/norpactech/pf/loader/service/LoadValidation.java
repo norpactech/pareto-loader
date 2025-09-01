@@ -49,13 +49,7 @@ public class LoadValidation extends BaseLoader {
           continue;
         }
         
-        var systemTenant = tenantRepository.findOne(Constant.SYSTEM_TENANT);
-        if (systemTenant == null) {
-          logger.error("System Tenant {} not found. Ignoring Validation {}.", Constant.SYSTEM_TENANT, name);
-          continue;
-        }
-
-        RefTableType refTableType = refTableTypeRepository.findOne(systemTenant.getId(), EnumRefTableType.VALIDATION_TYPE.name());
+        RefTableType refTableType = refTableTypeRepository.findOne(tenant.getId(), EnumRefTableType.VALIDATION_TYPE.name());
         if (refTableType == null) {
           logger.error("Reference Table Type {} not found. Ignoring Validation {}.", EnumRefTableType.VALIDATION_TYPE.name(), name);
           continue;

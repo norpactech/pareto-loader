@@ -24,9 +24,8 @@ public class Application {
     String password   = System.getenv("PARETO_PASSWORD");
     String factoryURL = System.getenv("PARETO_FACTORY_URL");
     String apiVersion = System.getenv("PARETO_API_VERSION");
-    String idTenant   = System.getenv("PARETO_TENANT_UUID");
-    String filePath   = System.getenv("IMPORT_FILE_PATH");
     String tenantUUID = System.getenv("PARETO_TENANT_UUID");
+    String filePath   = System.getenv("IMPORT_FILE_PATH");
     
     logger.info("Beginning Pareto Loader");
 

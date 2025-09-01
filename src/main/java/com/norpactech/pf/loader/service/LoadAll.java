@@ -11,6 +11,8 @@ public class LoadAll {
     logger.info("Beginning Load All from: {}", filePath);
 
     new LoadTenant(filePath, "Tenant.csv").load();
+    new LoadRefTableType(filePath, "RefTableType.csv").load();
+    new LoadRefTables(filePath, "RefTables.csv").load();
     new LoadSchema(filePath, "Schema.csv").load();
     new LoadUser(filePath, "User.csv").load(); // includes TenantUser
     new LoadValidation(filePath, "Validation.csv").load();
