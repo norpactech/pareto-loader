@@ -53,6 +53,13 @@ public class LoadRefTableType extends BaseLoader {
             request.setDescription(description);
             request.setCreatedBy(Constant.THIS_PROCESS_CREATED);
             response = refTableTypeRepository.save(request);
+            if (response.getData() == null) {
+              logger.error(this.getClass().getName() + " failed for: " + tenantName + " " + response.getMeta().getDetail());
+              errors++;
+            }
+            else {
+              persisted++;
+            }
           }
           else {
             RefTableTypePutApiRequest request = new RefTableTypePutApiRequest();
@@ -82,8 +89,7 @@ public class LoadRefTableType extends BaseLoader {
       }
     }
     catch (Exception e) {
-      logger.error("Error Loading Reference Table Type: {}", e.getMessage());
-      throw e;
+      throw new Exception("Error Loading Reference Table Type: ", e);
     }
     finally {
       if (this.getCsvParser() != null) this.getCsvParser().close();
