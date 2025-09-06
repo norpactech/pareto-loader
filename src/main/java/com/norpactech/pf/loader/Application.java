@@ -1,4 +1,6 @@
 package com.norpactech.pf.loader;
+import java.util.UUID;
+
 /**
  * © 2025 Northern Pacific Technologies, LLC. All Rights Reserved. 
  *  
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.norpactech.pf.config.ConfiguredAPI;
+import com.norpactech.pf.config.Globals;
 import com.norpactech.pf.loader.service.LoadAll;
 
 public class Application {
@@ -60,6 +63,7 @@ public class Application {
     }    
     
     try {
+      Globals.setIdTenant(UUID.fromString(tenantUUID));
       ConfiguredAPI.configure(factoryURL, apiVersion, username, password);
       LoadAll.load(filePath);
       System.exit(0);
